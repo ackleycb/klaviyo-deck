@@ -1,0 +1,337 @@
+/* Methodology slide */
+.method-section {
+  margin-bottom: 1.2em;
+}
+
+.method-section strong:first-child {
+  display: block;
+  font-size: 1.23em;
+  margin-bottom: 0.44em;
+  color: #3f303a;
+}
+
+.method-section p,
+.method-section li {
+  font-size: 0.88em;
+  line-height: 1.55;
+  color: #444;
+}
+
+.method-section ul {
+  padding-left: 1.2em;
+  margin: 0.25em 0;
+}
+
+.method-section li {
+  margin-bottom: 0.4em;
+}
+
+.method-section {
+  margin-bottom: 1.0em;
+}
+
+.method-section a {
+  text-decoration: underline;
+}
+
+/* Comment widget */
+.comment-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+  background: #4169E1;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.15s;
+}
+.comment-btn:hover { transform: scale(1.1); }
+
+.comment-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 200;
+  width: 340px;
+  max-height: 500px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.comment-panel.open { display: flex; }
+
+.comment-header {
+  background: #4169E1;
+  color: #fff;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment-header .close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.comment-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+  max-height: 280px;
+}
+
+.comment-item {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+.comment-item .comment-author {
+  font-weight: 700;
+  color: #4169E1;
+  font-size: 12px;
+}
+.comment-item .comment-time {
+  font-size: 11px;
+  color: #999;
+  margin-left: 8px;
+}
+.comment-item .comment-text {
+  margin-top: 4px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.comment-form {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.comment-form input,
+.comment-form textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+}
+.comment-form input:focus,
+.comment-form textarea:focus {
+  border-color: #4169E1;
+}
+.comment-form textarea {
+  resize: none;
+  height: 60px;
+}
+.comment-form button {
+  background: #4169E1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.comment-form button:hover { background: #3358c4; }
+.comment-form button:disabled { opacity: 0.5; cursor: default; }
+
+.comment-empty {
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+@media print {
+  .comment-btn, .comment-panel { display: none !important; }
+}
+
+/* Download button */
+.download-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background: #530037;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.download-btn:hover { opacity: 1; }
+@media print { .download-btn { display: none !important; } }
+
+/* Navigation arrows — always visible */
+.reveal .controls {
+  z-index: 200 !important;
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Prevent slide overflow */
+.reveal .slides section {
+  overflow: hidden !important;
+}
+
+/* Question slide */
+.q-slide {
+  padding-left: 70px !important;
+}
+
+.q-slide h2 {
+  font-size: 1.25em !important;
+  font-weight: 700;
+  color: #3f303a;
+  margin-bottom: 0.55em !important;
+  line-height: 1.2;
+}
+
+/* Insights panel */
+.insights-panel {
+  background: #f8f2ec;
+  border-radius: 8px;
+  padding: 0.8em 1em;
+  font-size: 0.89em;
+  line-height: 1.5;
+  min-height: 631px;
+}
+
+.insights-label {
+  font-weight: 700;
+  color: #f06343;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #f06343;
+}
+
+.insights-panel ol {
+  padding-left: 1.1em;
+  margin: 0;
+}
+
+.insights-panel li {
+  margin-bottom: 0.77em;
+}
+
+/* ============================================================
+   Crosstab nav — top of chart area, underline style
+   ============================================================ */
+.xt-nav {
+  border-bottom: 2px solid #e0dbd6;
+  margin-bottom: 0.3em;
+  padding-bottom: 0.1em;
+}
+
+.xt-nav a {
+  font-size: 0.82em;
+  font-weight: 600;
+  color: #888;
+  text-decoration: none;
+  padding: 0.22em 0.6em;
+  border-bottom: 3px solid transparent;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.xt-nav a:hover {
+  color: #530037;
+}
+
+.xt-nav a.active {
+  color: #530037;
+  border-bottom-color: #530037;
+}
+
+/* ============================================================
+   Chart/Table toggle — bottom of chart area, pill style
+   ============================================================ */
+.view-nav {
+  border-top: 1px solid #e0dbd6;
+  margin-top: 0.3em;
+  padding-top: 0.2em;
+}
+
+.view-nav a {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: #999;
+  text-decoration: none;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 0.2em 0.6em;
+  background: #fafafa;
+  display: inline-block;
+  margin-right: 0.3em;
+  cursor: pointer;
+}
+
+.view-nav a:hover {
+  color: #530037;
+  border-color: #530037;
+}
+
+.view-nav a.active {
+  color: #fff;
+  background: #530037;
+  border-color: #530037;
+}
+
+/* ============================================================
+   Content panes
+   ============================================================ */
+.pane {
+  min-height: 535px;
+}
+
+.pane-hidden {
+  display: none !important;
+}
+
+/* Tables fill the space */
+.pane table {
+  font-size: 0.85em !important;
+}
+
+.pane table td,
+.pane table th {
+  padding: 0.4em 0.6em !important;
+}
+
+/* Question footer */
+.q-footer {
+  font-size: 0.875em;
+  color: #777;
+  margin-top: 0.15em;
+  padding-top: 0.1em;
+}

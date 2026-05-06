@@ -1,0 +1,178 @@
+/*-- scss:defaults --*/
+
+$dark-bg: #3f303a;
+$cream: #f8f2ec;
+$coral: #f06343;
+$text-dark: #3f303a;
+
+$font-family-sans-serif: "Inter", "Helvetica Neue", system-ui, sans-serif;
+$font-family-monospace: "SF Mono", "Fira Code", monospace;
+$presentation-font-size-root: 24px;
+$presentation-heading-color: $text-dark;
+$body-color: $text-dark;
+
+/*-- scss:rules --*/
+
+.reveal .slides {
+  text-align: left;
+}
+
+// ============================================
+// TITLE
+// ============================================
+
+#title-slide {
+  background-color: $dark-bg !important;
+
+  h1.title {
+    font-size: 3.8em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: $cream;
+    margin-top: 100px;
+  }
+
+  p.subtitle {
+    font-family: $font-family-monospace;
+    font-size: 1.0em;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba($cream, 0.8);
+    margin-top: 1.5em;
+  }
+
+  p.date {
+    font-family: $font-family-monospace;
+    font-size: 0.5em;
+    color: rgba($cream, 0.35);
+  }
+
+  p.author { display: none; }
+}
+
+// ============================================
+// SECTION DIVIDERS
+// ============================================
+
+.divider-blue {
+  background-color: #4d4dfa !important;
+  h2 { font-size: 3.8em; font-weight: 600; color: $cream; letter-spacing: -0.03em; line-height: 1.05; margin-top: 140px; }
+}
+
+.divider-orange {
+  background-color: #d4922a !important;
+  h2 { font-size: 3.8em; font-weight: 600; color: $cream; letter-spacing: -0.03em; line-height: 1.05; margin-top: 140px; }
+}
+
+// ============================================
+// QUESTION SLIDES
+// ============================================
+
+.q-slide {
+  padding-left: 60px !important;
+
+  // Question title — large and prominent
+  h2 {
+    font-size: 1.25em;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5em;
+    margin-top: 0;
+  }
+
+  // Chart + insights side by side
+  .columns {
+    margin-top: 0;
+    height: calc(100% - 60px);
+    align-items: stretch;
+  }
+
+  // Insights panel
+  .insights-panel {
+    background-color: $cream;
+    padding: 40px 38px;
+    border-radius: 6px;
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .insights-label {
+      font-family: $font-family-monospace;
+      font-size: 0.85em;
+      font-weight: 500;
+      color: $coral;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    ol {
+      font-size: 1.0em;
+      line-height: 1.55;
+      padding-left: 1.3em;
+      margin: 0;
+    }
+
+    li { margin-bottom: 18px; }
+  }
+}
+
+// ============================================
+// SLIDE BRANDING
+// ============================================
+
+// Left branding strip via slide background-image
+// Applied by adding data-background-image in the qmd YAML or per-slide
+// We handle it globally here with a wrapper approach
+
+.slide-branding {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 70px;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.slide-confidential {
+  position: absolute;
+  bottom: 12px;
+  right: 20px;
+  font-family: $font-family-monospace;
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: rgba($text-dark, 0.3);
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 10;
+}
+
+// ============================================
+// QUESTION FOOTER
+// ============================================
+
+.q-footer {
+  font-size: 0.95em;
+  color: $text-dark;
+  line-height: 1.3;
+  margin-top: 0.4em;
+  font-style: italic;
+}
+
+// ============================================
+// THANK YOU
+// ============================================
+
+.thankyou {
+  background-color: $dark-bg !important;
+  h2 { font-size: 3.8em; font-weight: 600; color: $cream; margin-top: 140px; }
+  p { font-family: $font-family-monospace; font-size: 0.65em; color: rgba($cream, 0.6); letter-spacing: 0.05em; }
+}
