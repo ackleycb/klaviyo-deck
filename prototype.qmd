@@ -6,7 +6,7 @@ format:
     theme: [default, datalily.scss]
     width: 1920
     height: 1080
-    margin: 0.04
+    margin: 0.08
     transition: none
     slide-number: false
     controls: true
@@ -200,8 +200,8 @@ make_grid <- function(q_prefix, group_var, color = bar_color) { tryCatch({
         axis.title = element_blank(),
         axis.text.y = element_text(color = text_color, size = lab_sz, hjust = 1, lineheight = 0.8),
         axis.text.x = element_text(color = text_color, size = axis_x_sz),
-        plot.title = element_text(face = "bold", size = title_sz, color = text_color),
-        plot.margin = margin(3, 35, 3, 3)
+        plot.title = element_text(face = "bold", size = title_sz, color = text_color, margin = margin(0, 0, 4, 0)),
+        plot.margin = margin(8, 35, 3, 3)
       )
   })
 
@@ -256,7 +256,7 @@ make_xt_table <- function(q_prefix, group_var) {
 ## Research methodology {.q-slide}
 
 :::: {.columns}
-::: {.column width="48%"}
+::: {.column width="44%"}
 
 ::: {.method-section}
 **Project goals**
@@ -271,16 +271,19 @@ make_xt_table <- function(q_prefix, group_var) {
 ::: {.method-section}
 **Survey methodology**
 
-A 33-question survey was designed by our data scientists and administered to **2,072** B2C marketers via Panoplai across 8 countries.
+A 33-question survey was designed by our data scientists and administered to 2,072 B2C marketers via Panoplai across 8 countries.
 
 **Countries:** US (n=404), UK (n=435), France (n=213), Germany (n=207), Spain (n=205), Italy (n=200), Australia (n=203), Singapore (n=205)
 
-**Fielding period:** March–April 2026
+**Fielding period:** March--April 2026
 :::
 
 :::
 
-::: {.column width="48%"}
+::: {.column width="4%"}
+:::
+
+::: {.column width="44%"}
 
 ::: {.method-section}
 **Respondent profile**
@@ -293,17 +296,17 @@ Respondents were screened for active involvement in marketing strategy, with quo
 ::: {.method-section}
 **Crosstab notes**
 
-- **Region:** APAC (n=408), EMEA (n=1,260), United States (n=404)
-- **Primary Vertical:** Apparel (n=284), Food/CPG (n=546), Multi-category (n=393), Other (n=849)
+- **Region:** APAC (n=408), EMEA (n=1,260), US (n=404)
+- **Primary Vertical:** Apparel/fashion (n=284), Food/CPG (n=546), Health/sporting goods (n=215), Home goods (n=243), Multi-category (n=393), Other (n=391)
 - **Size by GMV:** Enterprise (n=730), Non-enterprise (n=1,342)
 :::
 
 ::: {.method-section}
 **Project resources**
 
-[Background analysis and content strategy](){style="color: #4169E1;"}
+[Background analysis and content strategy](https://docs.google.com/document/d/1-0x4Qd_cvaWbFemKGGhjWAm_SqqVTc6xDYgzcQ82NSs/edit?usp=sharing){target="_blank" style="color: #4169E1;"}
 
-[Survey questions](){style="color: #4169E1;"}
+[Survey design](https://docs.google.com/document/d/18QhPkN8K64RplmitD6GPOkLTGBurjOMaf3P0aeN5QLk/edit?usp=sharing){target="_blank" style="color: #4169E1;"}
 :::
 
 :::
@@ -388,7 +391,7 @@ make_bar("Q6-")
 ## Cultural Moments: Which Moments Matter {.divider-orange}
 
 
-## Only 27% have a dedicated cultural or real-time marketing team {.q-slide}
+## Only 27% of organizations have a dedicated cultural marketing team, while 25% have no clear ownership at all {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -475,19 +478,15 @@ make_xt_table("Q7-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 26% more likely** to have a dedicated cultural marketing team (34% vs. 27% overall), while those who influence decisions lean toward the broader marketing team owning it (34% vs. 26% overall).
+1. **US respondents are 37% more likely to report leadership decides on a case-by-case basis** compared to the overall average (26% vs. 19% overall)
 
-2. **Apparel/fashion brands are 33% more likely** to have a dedicated team (36% vs. 27% overall), whereas CPG brands rely more heavily on the broader marketing team (30% vs. 26%).
+2. **VP or Head of Marketing respondents are 54% more likely to say the broader marketing team owns cultural moments** compared to the overall average (40% vs. 26% overall)
 
-3. **Enterprise organizations are 26% more likely** to have a dedicated team (34% vs. 27% overall), while non-enterprise firms are 700% more likely to rely on ad hoc approaches (8% vs. 1% enterprise).
+3. **Both B2B and B2C companies are 15% more likely to have a dedicated cultural marketing team** than the overall average (31% vs. 27% overall)
 
-4. **In Spain (34%) and Singapore (34%),** dedicated teams are significantly more common, while Germany stands out for shared ownership across teams (31% vs. 22% overall -- 41% higher).
+4. **Founders/CEOs are 2.3x more likely to report no single owner or ad hoc cultural marketing** compared to the overall average (14% vs. 6% overall)
 
-5. **The United States has the highest rate of leadership case-by-case decisions** (26% vs. 19% overall -- 37% higher), and the UK leads in having no single owner (10% vs. 6% overall).
-
-6. **Founders/CEOs are far more likely** to report leadership-driven case-by-case decisions (31% vs. 19% overall), while VPs/Heads of Marketing most commonly report the broader marketing team owning it (40% vs. 26% overall -- 54% higher).
-
-7. **Founders/CEOs are also the most likely** to say cultural moment marketing happens ad hoc (14% vs. 6% overall -- 133% higher), suggesting smaller organizations may lack formalized ownership.
+5. **APAC respondents are 12% more likely than the overall average to say the broader marketing team owns cultural moments alongside everything else** (29% vs. 26% overall)
 :::
 :::
 ::::
@@ -497,7 +496,7 @@ Q7: Who, in your organization, has primary ownership of cultural moment marketin
 :::
 
 
-## 48% of teams activated around both planned and reactive moments in the past year {.q-slide}
+## Nearly half (48%) of marketers activated around both planned and reactive cultural moments in the past year {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -584,21 +583,17 @@ make_xt_table("Q8-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **APAC marketers are 15% more likely** to activate around both planned and reactive moments (55% vs. 48% overall), while EMEA leans more heavily toward planned-only activations (33% vs. 31%).
+1. **Apparel/fashion brands are 25% more likely to have activated around both planned and reactive moments** compared to the overall average (60% vs. 48% overall), the.
 
-2. **Enterprise brands are 17% more likely** to activate around both types (56% vs. 48% overall), while non-enterprise brands are 5x more likely to not activate at all (15% vs. 3% enterprise).
+2. **Enterprise companies are 17% more likely to have activated around both planned and reactive moments** than the overall average (56% vs. 48% overall), and are far less.
 
-3. **Apparel/fashion brands lead in dual activation** (60% vs. 48% overall -- 25% higher), while "Other" verticals have the highest non-activation rate (16% vs. 11% overall).
+3. **Both B2B and B2C companies are 13% more likely to have activated around both moment types** compared to the overall average (54% vs. 48% overall), while B2C-only firms.
 
-4. **Final decision-makers are 15% more likely** to activate around both types (55% vs. 48% overall), while influencers lean toward planned-only moments (40% vs. 31% overall -- 29% higher).
+4. **Founders/CEOs are 2.1x more likely to report no cultural moment activations** compared to the overall average (23% vs. 11% overall), while VP or Head of Marketing.
 
-5. **Singapore leads all countries for both-type activation** at 61% (27% higher than overall), while Italy has the highest planned-only rate (43% vs. 31% -- 39% higher).
+5. **APAC respondents are 15% more likely to have activated around both planned and reactive moments** compared to the overall average (55% vs. 48% overall), making them the.
 
-6. **Male respondents are 31% more likely than female** to focus on planned moments (34% vs. 26%), while female respondents are 44% more likely to report not activating at all (13% vs. 9%).
-
-7. **C-Suite and Directors lead in both-type activation** (54% each vs. 48% overall), while Founders/CEOs have the highest non-activation rate (23% vs. 11% overall -- 109% higher).
-
-8. **VPs/Heads of Marketing heavily favor planned-only activation** (41% vs. 31% overall -- 32% higher).
+6. **Health and sporting goods brands are 39% more likely than average to have focused mainly on planned moments** (43% vs. 31% overall), suggesting these brands lean toward.
 :::
 :::
 ::::
@@ -608,7 +603,7 @@ Q8: In the past 12 months, has your team intentionally built marketing activatio
 :::
 
 
-## Regional/national sporting events (42%) and music/entertainment events (41%) lead planned cultural activations {.q-slide}
+## Regional/national sporting events (42%) and major music events (41%) lead as the most-activated planned cultural moments {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -695,19 +690,17 @@ make_xt_table("Q9-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Enterprise brands are significantly more likely** to activate around all major moment types -- 17% more likely for regional sporting (49% vs. 42% overall), 22% more likely for global sporting (45% vs. 37%), and 9% more likely for fashion moments (24% vs. 22%).
+1. **US respondents are 21% more likely to have activated around major regional/national sporting events** compared to the overall average (51% vs. 42% overall), while APAC.
 
-2. **Apparel/fashion brands are 123% more likely** to activate around fashion/style moments (49% vs. 22% overall), reflecting strong vertical alignment.
+2. **Apparel/fashion brands are 2.2x more likely to have activated around fashion or style moments** like Met Gala or Fashion Weeks compared to the overall average (49% vs.
 
-3. **C-Suite executives are 36% more likely** to activate around regional sporting events (57% vs. 42% overall) and 24% more likely for global sporting events (46% vs. 37%).
+3. **C-Suite respondents are 36% more likely to have activated around major regional sporting events** than the overall average (57% vs. 42% overall), and are also 24% more.
 
-4. **Male respondents are 12% more likely** to activate around regional sporting (47% vs. 42% overall), while female and male respondents show similar interest in cultural awareness moments (40% vs. 36%).
+4. **Enterprise companies are 22% more likely to have activated around global sporting events** compared to the overall average (45% vs. 37% overall), while non-enterprise.
 
-5. **Final decision-makers are 23% more likely** to activate around fashion moments (27% vs. 22% overall) and 19% more likely for global sporting events (44% vs. 37%).
+5. **Both B2B and B2C companies are 10% more likely to have activated around major music events** compared to B2C-only firms (45% vs. 35%), and are also 24% more likely to.
 
-6. **The United States leads for regional sporting events** at 51% (21% above overall), while the UK leads for cultural awareness moments at 47% (24% above overall).
-
-7. **Germany is 19% above overall for regional sporting** (50%), while Singapore stands out for music/entertainment at 39% and gaming/tech at 9%.
+6. **Multi-category retailers are 16% more likely to have activated around cultural awareness moments** compared to the overall average (44% vs. 38% overall), while Health.
 :::
 :::
 ::::
@@ -720,7 +713,7 @@ Q9: Which planned cultural moments has your team activated around in the past 12
 ## Match Day: Sporting Events {.divider-orange}
 
 
-## 45% of teams are planning to activate around the 2026 FIFA World Cup this summer {.q-slide}
+## The 2026 FIFA World Cup dominates summer planning at 45%, far ahead of any other event {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -807,19 +800,17 @@ make_xt_table("Q10-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **EMEA marketers are most likely to activate** around the World Cup (49% vs. 45% overall), while the US leads for not having plans yet (22% vs. 16% -- 38% higher).
+1. **EMEA respondents are 9% more likely to be planning World Cup activations** compared to the overall average (49% vs. 45% overall), while APAC trails at 36%. EMEA also.
 
-2. **C-Suite executives are 33% more likely** to activate around the World Cup (60% vs. 45% overall), while Managers and Founders/CEOs are most likely to lack plans yet (21% and 24% respectively vs. 16%).
+2. **APAC respondents are 2.2x more likely to be planning Commonwealth Games activations** compared to the overall average (29% vs. 13% overall) and are 57% more likely to be.
 
-3. **Enterprise brands are 22% more likely** to plan World Cup activations (55% vs. 45% overall) and 43% more likely for F1 (30% vs. 21%). Non-enterprise brands are 122% more likely to have no summer plans (20% vs. 9%).
+3. **Enterprise companies are 22% more likely to be planning World Cup activations** than the overall average (55% vs. 45% overall), and are 43% more likely to be planning.
 
-4. **Male respondents are 18% more likely** to plan for the World Cup (53% vs. 45% overall), while female respondents are 31% more likely to have no plans yet (21% vs. 16%).
+4. **C-Suite respondents are 33% more likely to be planning World Cup activations** compared to the overall average (60% vs. 45% overall), the highest of any role segment.
 
-5. **Australia leads for Commonwealth Games** (40% vs. 13% overall -- 208% higher), France for Roland Garros (36% vs. 11% -- 227% higher) and Tour de France (38% vs. 17% -- 124% higher).
+5. **VP or Head of Marketing respondents are 53% more likely to be planning Tour de France activations** than the overall average (26% vs. 17% overall), and are 45% more.
 
-6. **The UK leads for Wimbledon activation** (32% vs. 18% overall -- 78% higher), while APAC leads for F1 planning (33% vs. 21% -- 57% higher).
-
-7. **Multi-category retailers are most likely** to plan for marketing/industry events (40% vs. 33% overall -- 21% higher).
+6. **The "Other" vertical is the least likely to plan World Cup activations** at just 31% (vs. 45% overall -- 31% below average), and is 69% more likely to say they don't.
 :::
 :::
 ::::
@@ -829,7 +820,7 @@ Q10: Looking ahead to this summer, which events is your team planning to activat
 :::
 
 
-## Time-sensitive offers tied to match results are the top World Cup activation (56%) {.q-slide}
+## Time-sensitive offers triggered by match results (56%) and curated product drops (51%) lead World Cup activation plans {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -916,19 +907,17 @@ make_xt_table("Q11-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Enterprise brands are 9% more likely** to plan time-sensitive offers (61% vs. 56% overall), 8% more likely for curated collections (55% vs. 51%), and 26% more likely to use AI-powered customer service (34% vs. 27%).
+1. **Apparel/fashion brands are 37% more likely to plan curated product collections or limited-edition drops** tied to matches or teams compared to the overall average (70%.
 
-2. **Male respondents show similar rates to female** for time-sensitive offers (55% vs. 57%), while males are 17% more likely for personalized messaging (34% vs. 29%).
+2. **VP or Head of Marketing respondents are 38% more likely to plan personalized messaging** based on team or sport preferences compared to the overall average (44% vs. 32%.
 
-3. **C-Suite executives show strong engagement** across activation types -- 5% more for time-sensitive offers (59% vs. 56%), 14% for curated collections (58% vs. 51%), and 19% for AI-powered service (32% vs. 27%).
+3. **Enterprise companies are 26% more likely to plan AI-powered customer service** during events compared to the overall average (34% vs. 27% overall), and are 19% more.
 
-4. **Final decision-makers are 89% more likely** to use AI-powered customer service (34% vs. 18% influencers) and 48% more likely for curated collections (59% vs. 40%).
+4. **Both B2B and B2C companies are 19% more likely to plan AI-powered customer service** compared to B2C-only firms (32% vs. 18%), and are 30% more likely to plan curated.
 
-5. **Germany leads for time-sensitive offers** (66% vs. 56% -- 18% higher), while Spain leads for curated collections (60% vs. 51% -- 18% higher).
+5. **Multi-category retailers are 41% more likely to plan AI-powered customer service** during events compared to the overall average (38% vs. 27% overall), suggesting they.
 
-6. **Apparel/fashion brands are 37% more likely** to plan curated collections (70% vs. 51% overall), while multi-category retailers lead in AI-powered service (38% vs. 27% -- 41% higher).
-
-7. **The UK leads for increased messaging volume** during match windows (36% vs. 27% overall -- 33% higher).
+6. **APAC respondents are 16% more likely to plan curated product collections** compared to the overall average (59% vs. 51% overall), while EMEA trails at 48%. All three.
 :::
 :::
 ::::
@@ -938,7 +927,7 @@ Q11: What types of activations are you planning around the World Cup and summer 
 :::
 
 
-## International football tournaments delivered the strongest marketing results for 25% of brands {.q-slide}
+## International football tournaments (25%) are the top-performing sporting event, but the US is a stark outlier with American football dominating at 60% {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1025,19 +1014,17 @@ make_xt_table("Q12-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **The US market is dominated by American football** -- 60% cite it as their top performer vs. 18% overall (233% higher), while only 5% cite international football.
+1. **US respondents overwhelmingly cite American football as the strongest-performing event** at 60%, which is 3.3x the overall rate of 18%. In contrast, international.
 
-2. **EMEA strongly favors international football tournaments** (30% vs. 25% overall) and regional leagues (15% vs. 11% -- 36% higher).
+2. **EMEA respondents are 20% more likely to cite international football tournaments** as their top performer compared to the overall average (30% vs. 25% overall), and are.
 
-3. **APAC marketers are the most likely to cite motorsport** as top-performing (19% vs. 11% overall -- 73% higher) and cricket (7% vs. 2% -- 250% higher).
+3. **APAC respondents are 73% more likely to cite motorsport** as delivering the strongest results compared to the overall average (19% vs. 11% overall), and are the only.
 
-4. **Australia leads for cricket at 12%** (500% above the 2% overall) and motorsport at 20% (82% above overall), reflecting distinct regional sports preferences.
+4. **Health and sporting goods brands are 47% more likely to cite the Olympics** as their top-performing event compared to the overall average (25% vs. 17% overall), while.
 
-5. **Spain leads for international football** (35%), while the UK leads for regional leagues (16%).
+5. **C-Suite respondents are 45% more likely to cite motorsport** as delivering the strongest results compared to the overall average (16% vs. 11% overall), and are also 30%.
 
-6. **C-Suite executives are 45% more likely** to cite motorsport (16% vs. 11% overall) and show broader distribution across sports.
-
-7. **Enterprise brands are 12% more likely** to cite international football (28% vs. 25% overall).
+6. **Enterprise companies are 12% more likely to cite international football tournaments** as their top performer compared to the overall average (28% vs. 25% overall), while.
 :::
 :::
 ::::
@@ -1047,7 +1034,7 @@ Q12: Which sporting event delivered the strongest marketing results for your bra
 :::
 
 
-## Only 38% of teams are fully ready with plans, assets, and triggers for the 2026 World Cup {.q-slide}
+## Only 38% of teams are fully ready for the World Cup with plans, assets, and triggers in place {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1134,19 +1121,17 @@ make_xt_table("Q13-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 16% more likely** to be fully ready (44% vs. 38% overall), while influencers are more likely to still be in planning (47% "on the squad" vs. 45%).
+1. **Enterprise companies are 21% more likely to be fully ready** with plans, assets, and triggers in place compared to the overall average (46% vs. 38% overall), while.
 
-2. **Enterprise brands are 21% more likely** to be Starting XI ready (46% vs. 38% overall), while non-enterprise are more likely to still be in training (16% vs. 10%).
+2. **APAC respondents are the least fully prepared**, with only 31% reporting "Starting XI ready" status (vs. 38% overall -- 18% below average), while 55% are still building.
 
-3. **Italy (47%) and Germany (46%) lead for full readiness,** while Australia and Singapore lag with the highest "on the squad" rates (55% and 56% respectively vs. 45% overall).
+3. **Founders/CEOs are 32% more likely to be fully ready** compared to the overall average (50% vs. 38% overall), the highest of any role. In contrast, Directors/Managers and.
 
-4. **Apparel/fashion brands lead in full readiness** (48% vs. 38% overall -- 26% higher), while CPG and Other verticals are more likely to still be building assets.
+4. **Apparel/fashion brands are 26% more likely to be fully ready** compared to the overall average (48% vs. 38% overall), while Home goods brands are the least ready at 36%.
 
-5. **Founders/CEOs report the highest full readiness** (50% vs. 38% overall -- 32% higher), likely due to control over shorter approval chains. Directors are most likely to still be building (51% vs. 45% overall).
+5. **B2C-only companies are 75% more likely to have no World Cup activation plans at all** compared to Both B2B and B2C firms (7% vs. 3%), and trail on full readiness (36%.
 
-6. **APAC has the highest "on the squad" rate** (55% vs. 45% overall) and the lowest full readiness (31% vs. 38% -- 18% below), suggesting more preparation is still needed.
-
-7. **Female respondents are more likely** to still be in training (17% vs. 10% male), while male respondents are 21% more likely to be fully ready (41% vs. 34%).
+6. **Health and sporting goods brands are 11% more likely to still be building assets** compared to the overall average (50% vs. 45% overall), despite being a vertical with a.
 :::
 :::
 ::::
@@ -1156,7 +1141,7 @@ Q13: How prepared is your team to activate in time during the 2026 World Cup? (n
 :::
 
 
-## 88% of teams plan to increase marketing budget for summer sporting events {.q-slide}
+## Only 38% of teams are fully ready for the World Cup with plans, assets, and triggers in place {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1243,19 +1228,17 @@ make_xt_table("Q14-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 32% more likely** to plan significant budget increases of >50% (25% vs. 19% overall), while influencers are 60% more likely to keep the same budget with different allocation (16% vs. 10%).
+1. **Founders/CEOs are 58% more likely to plan a significant budget increase (>50%)** compared to the overall average (30% vs. 19% overall), the highest of any role segment.
 
-2. **Italy leads in significant (>50%) budget increases** at 30% (58% above the 19% overall), while Spain leads in substantial increases (46% vs. 39%).
+2. **EMEA respondents are 11% more likely to plan a significant budget increase (>50%)** compared to the overall average (21% vs. 19% overall), while APAC trails at 16%. EMEA.
 
-3. **EMEA leads for substantial increases** (41% vs. 39% overall), while APAC leans toward somewhat increases (38% vs. 30% overall -- 27% higher).
+3. **Health and sporting goods brands are 23% more likely to plan a substantial (21-50%) budget increase** compared to the overall average (48% vs. 39% overall), the highest.
 
-4. **Founders/CEOs are the most aggressive,** with 30% planning >50% increases (58% above overall), while Managers are most conservative (11% for >50%, and 15% for same-budget allocation).
+4. **Both B2B and B2C companies are 31% more likely to plan significant (>50%) budget increases** compared to B2C-only firms (21% vs. 16%), while B2C-only companies are 44%.
 
-5. **Male respondents are 13% more likely** to plan substantial increases (44% vs. 39% overall), while female respondents lean toward moderate increases (33% vs. 30%).
+5. **The "Other" vertical is the most conservative on budget increases**, with the lowest rate of substantial increases (30% vs. 39% overall -- 23% below average) and the.
 
-6. **Apparel/fashion and multi-category retailers** both lead in significant increases (24% each vs. 19% overall -- 26% higher).
-
-7. **Australia stands out for favoring moderate increases** (43% "somewhat" vs. 30% overall -- 43% higher), suggesting more cautious budget approaches.
+6. **Multi-category retailers are 26% more likely to plan significant (>50%) budget increases** compared to the overall average (24% vs. 19% overall), and Apparel/fashion.
 :::
 :::
 ::::
@@ -1268,7 +1251,7 @@ Q14: Will your team increase its marketing budget for summer sporting events com
 ## Speed and Stakes {.divider-orange}
 
 
-## 45% plan to use AI to personalize messaging based on fan preferences and match outcomes {.q-slide}
+## 88% of teams plan to increase their marketing budget for summer sporting events, with 19% planning increases above 50% {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1355,19 +1338,17 @@ make_xt_table("Q15-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **C-Suite executives are 16% more likely** to plan AI personalization (52% vs. 45% overall) and 18% more likely to plan AI-powered campaign production (39% vs. 33%).
+1. **Founders are 42% more likely than the overall population to plan using AI for faster campaign production** (47% vs. 33% overall). This contrasts sharply with VPs or.
 
-2. **Enterprise brands show similar rates** for AI personalization (44% vs. 45% overall) but are 23% more likely to use AI for faster campaign production (37% vs. 30% non-enterprise).
+2. **C-Suite respondents are 16% more likely to plan AI-personalized messaging for sporting activations** (52% vs. 45% overall), suggesting senior leaders see personalization.
 
-3. **VPs/Heads of Marketing are 11% more likely** to plan AI personalization (50% vs. 45% overall) and 29% more likely for AI customer service (31% vs. 24%).
+3. **VP or Head of Marketing respondents are 29% more likely to plan AI-powered customer service during event windows** (31% vs. 24% overall), the highest of any role segment.
 
-4. **Final decision-makers are 86% more likely** to use AI for faster production (41% vs. 22% influencers), suggesting speed is a top priority for those with direct control.
+4. **Enterprise respondents are 12% more likely than the overall population to use AI for faster campaign production** (37% vs. 33% overall), while non-enterprise brands.
 
-5. **Spain leads for AI-driven campaign production** (39% vs. 33% overall -- 18% higher), while the US leads for AI customer service (27%).
+5. **Health and sporting goods brands are 13% more likely to plan AI-personalized messaging** (51% vs. 45% overall), a natural fit given their direct connection to sporting.
 
-6. **Male respondents are 10% more likely** to plan AI personalization (46% vs. 42% female) and 6% more likely for faster AI production (34% vs. 32% female).
-
-7. **Multi-category retailers lead for AI personalization** (50% vs. 45% overall -- 11% higher).
+6. **Apparel/fashion brands are 42% more likely than the overall population to use AI for faster campaign production** (47% vs. 33% overall), the highest of any vertical.
 :::
 :::
 ::::
@@ -1377,7 +1358,7 @@ Q15: Are you planning to use AI specifically to power your summer sporting activ
 :::
 
 
-## 38% of teams prepare activations 3-6 months before a planned cultural moment {.q-slide}
+## 45% of marketers plan to use AI for personalized messaging in summer sporting activations {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1464,19 +1445,17 @@ make_xt_table("Q16-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **France leads in very early preparation** -- 35% prepare more than 6 months ahead (59% above the 22% overall), while Singapore is also strong at 32%.
+1. **APAC respondents are 18% more likely than the overall population to plan more than 6 months ahead** (26% vs. 22% overall), the most forward-planning region.
 
-2. **Spain leads for 3-6 month preparation** at 48% (26% above the 38% overall), indicating strong mid-range planning discipline.
+2. **C-Suite respondents are 13% more likely to have activations ready 3-6 months before** (43% vs. 38% overall), while Founders/CEOs are the least likely at 33% -- 13% below.
 
-3. **The United States has the highest rate of "week of" preparation** (4% vs. 2% overall -- 100% higher), suggesting more reactive planning.
+3. **Founders/CEOs are 100% more likely to launch the week of the event** (4% vs. 2% overall), suggesting smaller founder-led teams operate with tighter timelines.
 
-4. **Enterprise brands are 18% more likely** to prepare >6 months ahead (26% vs. 22% overall), while non-enterprise brands are more likely to prepare just 2-4 weeks before (10% vs. 8%).
+4. **Enterprise brands are 18% more likely to plan more than 6 months ahead** (26% vs. 22% overall), while non-enterprise brands lag at 19%, reflecting longer enterprise.
 
-5. **Apparel/fashion brands are 18% more likely** to start >6 months ahead (26% vs. 22% overall), aligning with the longer product development cycles in fashion.
+5. **Health and sporting goods brands are 32% less likely to plan more than 6 months ahead** (15% vs. 22% overall), the lowest of any vertical, suggesting they rely on.
 
-6. **Founders/CEOs have the highest rate of last-minute preparation** -- 4% prepare "the week of" (100% above overall) and 2% are still finalizing when events start.
-
-7. **APAC has the highest rate of >6 months preparation** (26% vs. 22% overall -- 18% higher).
+6. **B2C-only brands are 14% less likely to plan more than 6 months in advance** (19% vs. 22% overall) compared to Both B2B and B2C brands at 23%.
 :::
 :::
 ::::
@@ -1486,7 +1465,7 @@ Q16: How far ahead of a planned cultural moment (e.g. World Cup, Wimbledon) does
 :::
 
 
-## 41% of teams can launch a reactive campaign within 6 hours of a viral moment {.q-slide}
+## 38% of teams have cultural moment activations ready 3-6 months in advance {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1573,19 +1552,17 @@ make_xt_table("Q17-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US marketers are 56% more likely** to respond within 2 hours (25% vs. 16% overall), far outpacing every other country -- France is lowest at just 7%.
+1. **US respondents are 56% more likely to be able to launch within 2 hours** (25% vs. 16% overall), far outpacing EMEA at just 13% -- making US teams nearly 2x as fast as.
 
-2. **Final decision-makers are 19% more likely** to respond within 2 hours (19% vs. 16% overall), while influencers are 36% more likely to take 48+ hours (15% vs. 11% overall).
+2. **Founders/CEOs are 50% more likely to get a campaign live within 2 hours** (24% vs. 16% overall), likely reflecting shorter approval chains in founder-led organizations.
 
-3. **Founders/CEOs are 50% more likely** to respond within 2 hours (24% vs. 16% overall), likely due to fewer approval layers.
+3. **Directors or Managers are 25% less likely than overall to launch within 2 hours** (12% vs. 16% overall), the slowest role segment, suggesting middle management faces.
 
-4. **Germany stands out for the 12-hour window** (30% vs. 22% overall -- 36% higher), suggesting structured but efficient response processes.
+4. **Home goods brands are 20% more likely to respond within 6 hours** (30% vs. 25% overall), the fastest vertical for this time window.
 
-5. **Managers are the slowest to respond** -- 17% take 48+ hours (55% above the 11% overall) and only 11% respond within 2 hours (31% below overall).
+5. **Health and sporting goods brands are 31% less likely to respond within 2 hours** (11% vs. 16% overall), though they index higher at the 12-hour mark (25% vs. 22%.
 
-6. **France has the highest rate of >48 hour response** (10% vs. 6% overall -- 67% higher), alongside the lowest <2 hour rate (7%).
-
-7. **APAC and EMEA are similar in overall speed distribution,** while the US concentrates more at the fastest end.
+6. **Non-enterprise brands are 12% more likely to respond within 6 hours** (28% vs. 25% overall), while enterprise brands lag at 23%, suggesting smaller organizations are.
 :::
 :::
 ::::
@@ -1595,7 +1572,7 @@ Q17: When an unexpected viral moment or cultural flashpoint hits, how quickly ca
 :::
 
 
-## 37% launched their most successful cultural activation within 1-3 days of spotting the opportunity {.q-slide}
+## Only 16% of teams can launch a reactive campaign within 2 hours of an unexpected viral moment {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1682,19 +1659,17 @@ make_xt_table("Q18-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **The US leads for under-24-hour launches** (26% vs. 17% overall -- 53% higher), while France is slowest with 15% taking more than 2 weeks (88% above the 8% overall).
+1. **US respondents are 53% more likely to have launched their most successful activation under 24 hours** (26% vs. 17% overall), more than double the EMEA rate of 16%.
 
-2. **Final decision-makers are 24% more likely** to launch within 24 hours (21% vs. 17% overall), while influencers are 38% more likely to take more than 2 weeks (11% vs. 8%).
+2. **Founders/CEOs are 53% more likely to have achieved success with sub-24-hour turnarounds** (26% vs. 17% overall), reinforcing the speed advantage of founder-led teams.
 
-3. **Founders/CEOs are 53% more likely** to launch under 24 hours (26% vs. 17% overall), and 39% less likely to take 4-7 days (14% vs. 23% overall).
+3. **VPs or Heads of Marketing are 52% more likely to cite 4-7 day timelines for their best activation** (35% vs. 23% overall), suggesting VP-level teams operate in a.
 
-4. **VPs/Heads of Marketing skew toward the 4-7 day window** (35% vs. 23% overall -- 52% higher), suggesting more structured processes with approval gates.
+4. **Health and sporting goods brands are 52% more likely to take 4-7 days** (35% vs. 23% overall), the highest of any vertical for this timeframe, while being 41% less.
 
-5. **Spain has the highest 1-3 day rate** (40% vs. 37% overall), while France shows notable 4-7 day preference (30% vs. 23% -- 30% higher).
+5. **Enterprise brands are 25% more likely to take more than 2 weeks for their best activation** (10% vs. 8% overall), and 12% less likely to launch under 24 hours (15% vs.
 
-6. **Multi-category retailers are 18% more likely** to launch in under 24 hours (20% vs. 17% overall), while CPG brands cluster in 1-3 days (38% vs. 37%).
-
-7. **Enterprise brands take slightly longer** -- 15% take 1-2 weeks (15% above the 13% overall) and 10% more than 2 weeks (25% above overall).
+6. **Non-enterprise brands are 12% more likely to have launched their best activation under 24 hours** (19% vs. 17% overall), confirming smaller brands' speed advantage.
 :::
 :::
 ::::
@@ -1704,7 +1679,7 @@ Q18: Thinking about your most successful cultural moment activation in the past 
 :::
 
 
-## 47% of teams missed 1-2 cultural moments in the past year because they couldn't move fast enough {.q-slide}
+## 37% of brands launched their most successful cultural moment activation within 1-3 days {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1791,19 +1766,17 @@ make_xt_table("Q19-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Spain has the highest miss rate** -- 56% missed 1-2 moments (19% above the 47% overall) and only 26% missed none (24% below the 34% overall).
+1. **Health and sporting goods brands are 28% more likely to have missed 1-2 moments** (60% vs. 47% overall) and 29% less likely to have missed none (24% vs. 34% overall),.
 
-2. **VPs/Heads of Marketing miss the most** -- 55% missed 1-2 moments (17% above overall) and only 26% missed none (24% below overall).
+2. **VPs or Heads of Marketing are 17% more likely to report missing 1-2 moments** (55% vs. 47% overall), the highest of any role, while being 24% less likely to report.
 
-3. **The US and UK have the highest "none missed" rates** (39% and 37% respectively vs. 34% overall), suggesting faster or more selective approaches.
+3. **APAC respondents are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall), while US respondents are 15% more likely to report missing none (39% vs. 34%.
 
-4. **Enterprise brands are more likely to miss 3-5 moments** (17% vs. 14% non-enterprise), suggesting ambition-vs-execution gaps at larger organizations.
+4. **Non-enterprise brands are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall), while enterprise brands are 13% more likely to have missed 3-5 moments (17%.
 
-5. **Founders/CEOs have the highest rate of missing 5+ moments** (7% vs. 4% overall -- 75% higher), possibly due to overcommitting without sufficient team bandwidth.
+5. **Founders/CEOs are 75% more likely to report missing more than 5 moments** (7% vs. 4% overall), the highest of any role segment for extreme misses.
 
-6. **Singapore (56%) and Spain (56%) both significantly over-index** on the 1-2 miss rate.
-
-7. **The UK has the highest 5+ miss rate** (7% vs. 4% overall -- 75% higher).
+6. **Multi-category retailers are 13% more likely to have missed 3-5 moments** (17% vs. 15% overall) and 25% more likely to miss more than 5 (5% vs. 4% overall), suggesting.
 :::
 :::
 ::::
@@ -1813,7 +1786,7 @@ Q19: In the past 12 months, how many cultural moments did your team miss because
 :::
 
 
-## 53% of marketers attribute 10-20% of total marketing revenue to cultural moment activations {.q-slide}
+## 37% of brands launched their most successful cultural moment activation within 1-3 days {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1900,21 +1873,17 @@ make_xt_table("Q20-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 14% more likely** to attribute >20% of revenue to cultural moments (24% vs. 21% overall), suggesting those with budget control see higher returns.
+1. **Health and sporting goods brands are 15% more likely to attribute 10-20% of revenue to cultural moments** (61% vs. 53% overall), the highest of any vertical.
 
-2. **Apparel/fashion brands are 29% more likely** to report >20% revenue from cultural moments (27% vs. 21% overall), the highest of any vertical.
+2. **Apparel/fashion brands are 29% more likely to report more than 20% of revenue from cultural moments** (27% vs. 21% overall), the highest vertical for top-tier revenue.
 
-3. **Enterprise brands are 14% more likely** to report >20% revenue share (24% vs. 21% overall).
+3. **VP or Head of Marketing respondents are 12% more likely to report 10-20% revenue attribution** (59% vs. 53% overall), while Founders/CEOs are 17% less likely at 44%.
 
-4. **Spain (25%) and Singapore (26%) lead for >20% revenue share,** while Australia is lowest at 17%.
+4. **Founders/CEOs are 19% more likely to report more than 20% of revenue from cultural moments** (25% vs. 21% overall), the highest of any role, suggesting founder-led.
 
-5. **Directors and VPs/Heads of Marketing cluster at 10-20%** (60% and 59% respectively vs. 53% overall -- 11-13% higher), with less variance than other roles.
+5. **Enterprise brands are 14% more likely to attribute more than 20% of revenue to cultural moments** (24% vs. 21% overall) compared to 19% for non-enterprise brands.
 
-6. **Italy has the lowest rate of not measuring separately** (3% vs. 10% overall -- 70% lower), suggesting more disciplined attribution.
-
-7. **Founders/CEOs are 50% more likely** to not measure revenue separately (15% vs. 10% overall), suggesting less formal measurement among smaller firms.
-
-8. **The US leads for not having a formal measurement approach** (11% "don't measure"), while EMEA has the strongest 10-20% concentration (54%).
+6. **Both B2B and B2C brands are 35% more likely to attribute more than 20% of revenue** (23% vs. 17% for B2C-only), while B2C-only brands are 30% more likely to not measure.
 :::
 :::
 ::::
@@ -1927,7 +1896,7 @@ Q20: Approximately what share of your total marketing revenue comes from cultura
 ## Channels, Data, and Personalization {.divider-orange}
 
 
-## 63% assess each cultural moment case-by-case based on brand fit and audience relevance {.q-slide}
+## Two-thirds (66%) of teams missed at least one cultural moment in the past year due to speed {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2014,19 +1983,17 @@ make_xt_table("Q21-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Spain leads for case-by-case assessment** (73% vs. 63% overall -- 16% higher), while France and Italy lead for clear brand guidelines (33% each vs. 28%).
+1. **Health and sporting goods brands are 16% more likely to assess cultural moments case-by-case** (73% vs. 63% overall), the highest of any vertical, while being 25% less.
 
-2. **Final decision-makers are 14% more likely** to have clear brand guidelines (32% vs. 28% overall), while influencers lean more toward case-by-case (67% vs. 63%).
+2. **VP or Head of Marketing respondents are 11% more likely to assess case-by-case** (70% vs. 63% overall), while Founders/CEOs are 11% less likely (56% vs. 63% overall).
 
-3. **Enterprise brands are 21% more likely** to have clear guidelines (34% vs. 28% overall), while non-enterprise are more likely to rely on gut calls (4% vs. 1%).
+3. **Founders/CEOs are 18% more likely to have clear brand guidelines** (33% vs. 28% overall) but also 100% more likely to make decisions based on gut calls (6% vs. 3%.
 
-4. **Founders/CEOs are the most likely** to report making gut calls (6% vs. 3% overall -- 100% higher), and the most likely to have brand guidelines (33% vs. 28%).
+4. **Enterprise brands are 21% more likely to have clear brand guidelines** (34% vs. 28% overall) compared to 25% for non-enterprise brands, reflecting more formalized.
 
-5. **Directors are the strongest case-by-case assessors** (71% vs. 63% overall -- 13% higher), suggesting a process-driven approach.
+5. **Non-enterprise brands are 33% more likely to rely on gut calls** (4% vs. 3% overall) and just 1% for enterprise, suggesting smaller brands lack formal frameworks.
 
-6. **Apparel/fashion brands are 18% more likely** to have clear brand guidelines (33% vs. 28% overall), aligning with stronger brand identity positioning.
-
-7. **The UK has the highest "gut call" rate** (6% vs. 3% overall -- 100% higher), and the highest competitor-following rate (7%).
+6. **Both B2B and B2C brands are 7% more likely to have clear brand guidelines** (30% vs. 28% overall) compared to B2C-only at 25%, while B2C-only brands are 33% more likely.
 :::
 :::
 ::::
@@ -2036,7 +2003,7 @@ Q21: How does your team decide whether or not it has a credible reason to partic
 :::
 
 
-## Social media dominates cultural moment activations, cited by 46% as the top-performing channel {.q-slide}
+## Over half (53%) attribute 10-20% of marketing revenue to cultural moment activations {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2123,19 +2090,17 @@ make_xt_table("Q22-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **The UK leads for social media as the top channel** at 58%, while Spain dramatically favors WhatsApp (22% vs. 10% overall -- 120% higher) and has the lowest social media reliance (25%).
+1. **Apparel/fashion brands are 17% more likely to cite social media as their best channel** (54% vs. 46% overall), the highest of any vertical, reinforcing social's.
 
-2. **The US has the highest SMS preference** (9% vs. 5% overall -- 80% higher), while WhatsApp is only at 3% in the US.
+2. **US respondents are 80% more likely to cite SMS as their best-performing channel** (9% vs. 5% overall), while EMEA is 40% less likely at just 3%, reflecting different.
 
-3. **EMEA leads for WhatsApp** (13% vs. 10% overall -- 30% higher) and influencer partnerships (12% vs. 10%), while the US leads for SMS (9% vs. 5%).
+3. **EMEA respondents are 30% more likely to cite WhatsApp as a top channel** (13% vs. 10% overall), while the US is 70% less likely at just 3%, reflecting WhatsApp's.
 
-4. **Italy has the highest influencer/creator partnership preference** at 16% (60% above the 10% overall).
+4. **Health and sporting goods brands are 80% more likely to cite WhatsApp as their best channel** (18% vs. 10% overall), the highest of any vertical.
 
-5. **VPs/Heads of Marketing lead for influencer partnerships** (16% vs. 10% overall -- 60% higher), while C-Suite favors WhatsApp (14% vs. 10%).
+5. **VP or Head of Marketing respondents are 60% more likely to cite influencer or creator partnerships** (16% vs. 10% overall), the highest of any role, while Founders/CEOs.
 
-6. **Enterprise brands are 43% more likely** to favor advertising (10% vs. 7% overall), while non-enterprise lean more toward social media (48% vs. 43% enterprise).
-
-7. **Apparel/fashion brands are the strongest social media advocates** (54% vs. 46% overall -- 17% higher).
+6. **Enterprise brands are 43% more likely to cite ads (TV, YouTube, Podcasts) as their best channel** (10% vs. 7% overall), reflecting larger media budgets, compared to just.
 :::
 :::
 ::::
@@ -2145,7 +2110,7 @@ Q22: Which channel delivers the best results for your cultural moment activation
 :::
 
 
-## Only 40% report fully coordinated channel activation during cultural moments {.q-slide}
+## 63% of teams assess cultural moment participation case-by-case rather than using formal guidelines {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2232,19 +2197,17 @@ make_xt_table("Q23-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 15% more likely** to report full coordination (46% vs. 40% overall), while influencers are more likely to say channels are "mostly coordinated" (56% vs. 51%).
+1. **Founders and CEOs are 18% more likely than average to report full coordination** across channels during cultural moments (47% vs. 40% overall), suggesting senior leaders.
 
-2. **Enterprise brands are 13% more likely** to be fully coordinated (45% vs. 40% overall), while non-enterprise are 60% more likely to have independently operating channels (8% vs. 5%).
+2. **Directors and Managers are 12% more likely to say channels are only "mostly coordinated"** rather than fully coordinated (57% vs. 51% overall), while being 18% less.
 
-3. **Apparel/fashion brands lead in full coordination** (50% vs. 40% overall -- 25% higher), while "Other" verticals have the highest independent channel rate (9% vs. 7%).
+3. **Apparel/fashion brands are 25% more likely to claim full coordination** compared to the overall average (50% vs. 40% overall), the highest rate of any vertical.
 
-4. **Founders/CEOs and VPs/Heads of Marketing** both report the highest full coordination (47% each vs. 40% overall -- 18% higher).
+4. **"Other" vertical respondents are 71% more likely to say channels operate independently** (12% vs. 7% overall), suggesting less-defined verticals struggle more with.
 
-5. **France has the highest independent channel rate** (9% vs. 7% overall -- 29% higher), while Australia has the lowest (3%).
+5. **Enterprise companies are 13% more likely to report full coordination** than the overall average (45% vs. 40% overall), while non-enterprise companies lag at 37%.
 
-6. **The US leads in full coordination** (43% vs. 40% overall), while EMEA has the highest partial coordination (50%).
-
-7. **Female respondents are more likely to be unsure** about coordination (3% vs. 1% male), suggesting potential visibility gaps in cross-channel planning.
+6. **Both B2B and B2C businesses are 5% more likely than B2C-only to report full coordination** (42% vs. 37%), possibly reflecting more mature orchestration infrastructure.
 :::
 :::
 ::::
@@ -2254,7 +2217,7 @@ Q23: In your opinion, how coordinated are your channels when you activate around
 :::
 
 
-## 55% are only "fairly confident" they reach the right customers during cultural activations {.q-slide}
+## Social media dominates as the top cultural moment channel at 46%, nearly 3x the next channel {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2341,19 +2304,17 @@ make_xt_table("Q24-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Final decision-makers are 17% more likely** to be very confident (48% vs. 41% overall), while influencers skew heavily toward fairly confident (63% vs. 55% overall -- 15% higher).
+1. **US respondents are 17% more likely to be very confident in their targeting** compared to the overall average (48% vs. 41% overall), while APAC trails at 37% -- a gap of.
 
-2. **The US leads for very confident** (48% vs. 41% overall -- 17% higher), while Singapore is least confident (34% "very" -- 17% below overall).
+2. **Enterprise companies are 20% more likely than average to report high confidence** in personalized targeting (49% vs. 41% overall), compared to just 36% for.
 
-3. **Enterprise brands are 20% more likely** to be very confident (49% vs. 41% overall), while non-enterprise are more likely to report low confidence (5% vs. 3%).
+3. **Apparel/fashion brands are 20% more likely to be very confident** in reaching the right customers (49% vs. 41% overall), the highest of any vertical.
 
-4. **C-Suite executives are the most confident** -- 50% report "very confident" (22% above the 41% overall), while Directors are the least confident of leadership roles (31% "very").
+4. **Health and sporting goods respondents are 24% less likely to report high confidence** (31% vs. 41% overall) and are 18% more likely to say they only segment without true.
 
-5. **Apparel/fashion brands lead in very confident ratings** (49% vs. 41% overall -- 20% higher), while "Other" verticals have the highest not-very-confident rate (6% vs. 4%).
+5. **C-Suite executives are 22% more likely than average to be very confident** in their targeting precision (50% vs. 41% overall), while Directors/Managers are the least.
 
-6. **APAC skews toward fairly confident** (60% vs. 55% overall), while the US leads for very confident (48%).
-
-7. **Female respondents are 100% more likely** to report "not very confident" (6% vs. 3% male), suggesting potential gaps in data access or personalization tools.
+6. **Both B2B and B2C businesses are 16% more likely to report high confidence** compared to B2C-only firms (43% vs. 37%), suggesting dual-model companies invest more in.
 :::
 :::
 ::::
@@ -2366,7 +2327,7 @@ Q24: When you activate around a cultural moment, how confident are you that your
 ## The AI Advantage {.divider-orange}
 
 
-## AI-assisted content creation is the #1 enabler (35%) for halving cultural moment launch times {.q-slide}
+## 91% of marketers say their channels are at least mostly coordinated around cultural moments {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2453,21 +2414,17 @@ make_xt_table("Q25-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **France stands out dramatically** -- 50% cite AI-assisted content creation (43% above the 35% overall), the highest of any country.
+1. **APAC respondents are 17% more likely to prioritize faster access to real-time customer data** over the overall average (35% vs. 30% overall), making it their top choice.
 
-2. **Australia leads for needing streamlined approvals** (23% vs. 17% overall -- 35% higher), while APAC as a region also over-indexes on approvals (20% vs. 17%).
+2. **Health and sporting goods marketers are 20% more likely to choose AI-assisted content creation** (42% vs. 35% overall), the highest of any vertical.
 
-3. **Male respondents are 14% more likely** to prioritize AI content creation (40% vs. 35% overall), while female respondents are 10% more likely to prioritize real-time data (33% vs. 30%).
+3. **Multi-category retailers are 20% more likely to prioritize real-time customer data** (36% vs. 30% overall) and are 41% less likely to want streamlined approvals (10% vs.
 
-4. **The US leads for needing pre-built templates** (16% vs. 13% overall -- 23% higher).
+4. **APAC is 18% more likely than average to cite streamlined internal approvals** as a top accelerator (20% vs. 17% overall), while US respondents are 24% less likely to.
 
-5. **Influencers are 62% more likely** to need streamlined approvals (21% vs. 13% decision-makers), while decision-makers prioritize real-time data (34% vs. 26% -- 31% higher).
+5. **Founders/CEOs are 41% less likely to want streamlined approvals** (10% vs. 17% overall) but are 20% more likely to prioritize real-time customer data (36% vs. 30%.
 
-6. **Managers are the most likely** to need streamlined approvals (19% vs. 17% overall) and clearer ownership (7% vs. 5% overall -- 40% higher).
-
-7. **Multi-category retailers lead for needing real-time data** (36% vs. 30% overall -- 20% higher).
-
-8. **Australia is the only country** where real-time data (33%) outranks AI content creation (27%) as the top need.
+6. **VPs/Heads of Marketing are 24% more likely to want streamlined internal approvals** (21% vs. 17% overall), the highest of any role, suggesting they face the most.
 :::
 :::
 ::::
@@ -2477,7 +2434,7 @@ Q25: What would most help your team halve the time it takes to launch a cultural
 :::
 
 
-## Content generation (42%) leads current AI use, with send-time optimization (34%) and segmentation (33%) close behind {.q-slide}
+## Only 41% of marketers are "very confident" they reach the right customers with the right message during cultural moments {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2564,19 +2521,17 @@ make_xt_table("Q26-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **APAC leads in every AI use case** -- 47% for content generation (12% above overall), 37% for segmentation (12% higher), and 42% for send-time optimization (24% higher).
+1. **US respondents are 75% more likely to say they don't use AI at all** for cultural moment activations (14% vs. 8% overall), while APAC is 25% less likely to say the same.
 
-2. **Enterprise brands are 5% more likely** to use AI for content generation (44% vs. 42%), 15% more for segmentation (38% vs. 33%), and 25% more for AI customer service (25% vs. 20%).
+2. **Enterprise companies are 25% more likely to use AI-powered customer service** during event windows (25% vs. 20% overall) and 21% more likely to build full campaigns from.
 
-3. **C-Suite is the biggest AI adopter** -- 36% more likely to use segmentation (45% vs. 33%), 12% more for send-time optimization (38% vs. 34%), and 20% more for AI customer service (24% vs. 20%).
+3. **Founders/CEOs are 21% more likely to use AI for content generation** (51% vs. 42% overall), the highest rate of any role, but are 63% more likely to report not using AI.
 
-4. **The US and UK have the highest AI non-adoption** (14% and 13% respectively vs. 8% overall -- 75% and 63% higher), while Italy and Singapore are lowest (3% each).
+4. **C-Suite executives are 36% more likely to use AI for audience segmentation** (45% vs. 33% overall), the highest segmentation adoption among all roles.
 
-5. **Singapore leads for content generation** (50% vs. 42% overall -- 19% higher) and send-time optimization (44% vs. 34% -- 29% higher).
+5. **B2C-only companies are 50% more likely to not use AI at all** compared to Both B2B and B2C firms (12% vs. 6%), while B2B+B2C companies lead in every AI use case.
 
-6. **Male respondents are 32% more likely** to use segmentation (37% vs. 28% female) and 9% more for send-time optimization (35% vs. 32% female).
-
-7. **Multi-category retailers lead in building full campaigns** from brief (24% vs. 19% overall -- 26% higher).
+6. **Both B2B and B2C companies are 44% more likely to use AI-powered customer service** than B2C-only firms (23% vs. 16%), suggesting dual-model businesses find more value.
 :::
 :::
 ::::
@@ -2586,7 +2541,7 @@ Q26: How does your team currently use AI or automation for cultural moment activ
 :::
 
 
-## 79% are positive about or already exploring AI-driven "vibe marketing" for cultural activations {.q-slide}
+## AI-assisted content creation is the top accelerator for cultural moment activations, chosen by 35% {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2673,21 +2628,17 @@ make_xt_table("Q27-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **APAC is the most positive region** -- 60% positive (11% above the 54% overall), while the US is the most skeptical (10% vs. 8% overall).
+1. **Directors and Managers are 13% more likely to be positive about vibe marketing** (61% vs. 54% overall), while Founders/CEOs are 26% less likely to be positive (40% vs.
 
-2. **Final decision-makers are 24% more likely** to already be doing or exploring vibe marketing (31% vs. 25% overall), while influencers are more broadly positive (59% vs. 54%).
+2. **Founders/CEOs are 75% more likely to be skeptical about vibe marketing** than average (14% vs. 8% overall), the highest skepticism rate of any role, compared to just 2%.
 
-3. **Founders/CEOs show the sharpest polarization** -- 31% are already doing it (24% above overall), but 14% are skeptical (75% above the 8% overall).
+3. **Enterprise companies are 20% more likely to already be practicing vibe marketing** compared to non-enterprise (30% vs. 23%), while non-enterprise firms are 67% more.
 
-4. **Directors are the most positive** (64% vs. 54% overall -- 19% higher) and the least skeptical (4%).
+4. **B2C-only companies are 38% more likely to be skeptical** about vibe marketing compared to Both B2B and B2C firms (11% vs. 6%), and 38% more likely to be unsure (15% vs.
 
-5. **Enterprise brands are 20% more likely** to already be doing it (30% vs. 25% overall) and 44% less likely to be skeptical (5% vs. 9% non-enterprise).
+5. **Both B2B and B2C firms are 38% more likely to already be doing vibe marketing** compared to B2C-only firms (29% vs. 21%).
 
-6. **Singapore leads for positivity** (63% vs. 54% overall -- 17% higher), while France has the highest unsure rate (20% vs. 13% overall -- 54% higher).
-
-7. **Apparel/fashion brands are 24% more likely** to already be doing it (31% vs. 25% overall), while "Other" verticals have the highest skepticism (10% vs. 8%).
-
-8. **Female respondents are 23% more likely** to be unsure (16% vs. 13% overall) and 29% more likely to be skeptical (9% vs. 7% male).
+6. **APAC respondents are 11% more likely to feel positive** about vibe marketing (60% vs. 54% overall) and 31% less likely to be unsure (9% vs. 13% overall), showing the.
 :::
 :::
 ::::
@@ -2700,7 +2651,7 @@ Q27: Some teams now define the outcome they want and let AI generate the content
 ## Performance and Confidence {.divider-orange}
 
 
-## 43% of teams primarily measure cultural moment success through brand building metrics {.q-slide}
+## 42% of teams use AI for content generation in cultural moment activations, but 8% don't use AI at all {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2787,19 +2738,17 @@ make_xt_table("Q28-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **The US stands out as the most commercial** -- 45% measure both commercial and brand (45% above the 31% overall), and only 36% focus on brand alone (16% below the 43% overall).
+1. **US respondents are 45% more likely to measure both commercial and brand building** compared to the overall average (45% vs. 31% overall), while EMEA is the most likely.
 
-2. **France is the most brand-focused** at 55% (28% above the 43% overall), while Germany leads for short-term commercial metrics (33% vs. 24% -- 38% higher).
+2. **VPs/Heads of Marketing are 26% more likely to prioritize brand building metrics** (54% vs. 43% overall), the highest of any role, while Founders/CEOs are 16% less likely.
 
-3. **VPs/Heads of Marketing are the most brand-focused** (54% vs. 43% overall -- 26% higher), while Founders/CEOs are most likely to focus on short-term commercial (30% vs. 24% -- 25% higher).
+3. **Health and sporting goods brands are 14% more likely to prioritize brand building** (49% vs. 43% overall), the highest vertical rate, while Apparel/fashion is the most.
 
-4. **EMEA is the most commercially focused region** -- 26% short-term commercial (vs. 24% overall), while the US leads for balanced measurement at 45%.
+4. **Both B2B and B2C companies are 6% more likely to use a dual measurement approach** (33% vs. 28% for B2C-only), while B2C-only firms are 13% more likely to focus on pure.
 
-5. **Founders/CEOs have the highest rate** of no formal measurement (4% vs. 2% overall -- 100% higher).
+5. **Enterprise and non-enterprise companies measure cultural moments nearly identically** on brand building (42% vs. 43%), though Enterprise is slightly more likely to use a.
 
-6. **Enterprise brands and non-enterprise brands** show similar measurement profiles, with enterprise slightly more likely to measure both (33% vs. 30%).
-
-7. **CPG brands lead for brand-building focus** (47% vs. 43% overall), while apparel/fashion brands have the most balanced approach (31% both).
+6. **APAC respondents are 9% more likely to prioritize brand building** (47% vs. 43% overall), while US respondents are 16% less likely to focus on brand building alone (36%.
 :::
 :::
 ::::
@@ -2809,7 +2758,7 @@ Q28: What is your primary measure of success for cultural moment activations? (n
 :::
 
 
-## 37% say cultural moment activations outperform routine calendar marketing like Black Friday {.q-slide}
+## 42% of teams use AI for content generation in cultural moment activations, but 8% don't use AI at all {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2896,21 +2845,17 @@ make_xt_table("Q29-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **France leads with 46% saying cultural moments outperform** (24% above the 37% overall), while the UK and US are tied at the lowest (33% each).
+1. **Apparel/fashion brands are 19% more likely to say cultural moments outperform** routine calendar marketing (44% vs. 37% overall), the highest of any vertical, while.
 
-2. **Final decision-makers are 11% more likely** to say cultural moments outperform (41% vs. 37% overall), while influencers see more parity (62% "about the same" vs. 56% overall).
+2. **Enterprise companies are 14% more likely to report cultural moments outperforming** routine marketing (42% vs. 37% overall), compared to 34% for non-enterprise -- a.
 
-3. **Enterprise brands are 14% more likely** to report outperformance (42% vs. 37% overall), while non-enterprise are more likely to see parity (60% vs. 51%).
+3. **Both B2B and B2C companies are 25% more likely than B2C-only to say cultural moments outperform** (40% vs. 32%), suggesting that businesses with more complex customer.
 
-4. **Apparel/fashion brands are 19% more likely** to see outperformance (44% vs. 37% overall), the highest of any vertical.
+4. **VPs/Heads of Marketing are 11% more likely to report outperformance** (41% vs. 37% overall), while Directors/Managers are 8% less likely (34% vs. 37% overall) -- the.
 
-5. **Australia has the highest underperformance rate** (11% vs. 7% overall -- 57% higher).
+5. **US respondents are 11% less likely to report cultural moment outperformance** (33% vs. 37% overall) and are the most likely region to say performance is "about the same".
 
-6. **VPs/Heads of Marketing and C-Suite** are the most likely to report outperformance (41% and 39% respectively vs. 37% overall).
-
-7. **Male respondents are 15% more likely** to see outperformance (39% vs. 34% female), while female respondents lean toward "about the same" (59% vs. 54%).
-
-8. **Italy sees the most parity** -- 62% say about the same (11% above overall), with one of the lowest outperform rates (35%).
+6. **APAC respondents are 29% more likely to say cultural moments underperform** (9% vs. 7% overall), the highest underperformance rate of any region.
 :::
 :::
 ::::
@@ -2920,116 +2865,7 @@ Q29: Compared to your routine calendar marketing (e.g. Black Friday, Cyber Monda
 :::
 
 
-## 76% of teams report more creative freedom during cultural moment activations than routine marketing {.q-slide}
-
-:::: {.columns}
-::: {.column width="62%"}
-
-```{=html}
-<div class="xt-nav">
-  <a href="javascript:void(0)" data-xt="overall" class="active">Overall</a>
-  <a href="javascript:void(0)" data-xt="region">By Region</a>
-  <a href="javascript:void(0)" data-xt="vertical">By Vertical</a>
-  <a href="javascript:void(0)" data-xt="size">By Size</a>
-</div>
-```
-
-::: {.pane data-xt="overall" data-view="chart"}
-```{r}
-#| fig-width: 10
-#| fig-height: 8
-make_bar("Q30-")
-```
-:::
-
-::: {.pane data-xt="overall" data-view="table" .pane-hidden}
-```{r}
-make_table("Q30-")
-```
-:::
-
-::: {.pane data-xt="region" data-view="chart" .pane-hidden}
-```{r}
-#| fig-width: 12
-#| fig-height: 7.5
-make_grid("Q30-", "region")
-```
-:::
-
-::: {.pane data-xt="region" data-view="table" .pane-hidden}
-```{r}
-make_xt_table("Q30-", "region")
-```
-:::
-
-
-
-::: {.pane data-xt="vertical" data-view="chart" .pane-hidden}
-```{r}
-#| fig-width: 12
-#| fig-height: 7.5
-make_grid("Q30-", "primary_vertical")
-```
-:::
-
-::: {.pane data-xt="vertical" data-view="table" .pane-hidden}
-```{r}
-make_xt_table("Q30-", "primary_vertical")
-```
-:::
-
-::: {.pane data-xt="size" data-view="chart" .pane-hidden}
-```{r}
-#| fig-width: 12
-#| fig-height: 7.5
-make_grid("Q30-", "size_by_gmv")
-```
-:::
-
-::: {.pane data-xt="size" data-view="table" .pane-hidden}
-```{r}
-make_xt_table("Q30-", "size_by_gmv")
-```
-:::
-
-```{=html}
-<div class="view-nav">
-  <a href="javascript:void(0)" data-view="chart" class="active">Chart</a>
-  <a href="javascript:void(0)" data-view="table">Table</a>
-</div>
-```
-
-:::
-
-::: {.column width="38%"}
-::: {.insights-panel}
-::: {.insights-label}
-Key takeaways
-:::
-
-1. **Final decision-makers are 24% more likely** to report significantly more freedom (31% vs. 25% overall), while influencers are more likely to say "about the same" (21% vs. 19%).
-
-2. **Spain leads for significantly more freedom** (32% vs. 25% overall -- 28% higher) and Singapore for somewhat more freedom (60% vs. 51% overall -- 18% higher).
-
-3. **Apparel/fashion brands lead in significantly more freedom** (33% vs. 25% overall -- 32% higher), reflecting the creative culture of fashion marketing.
-
-4. **Founders/CEOs report the most experimentation** (32% significantly more vs. 25% overall -- 28% higher), but also the most "about the same" responses (21%).
-
-5. **Directors lean toward consistent treatment** -- 60% say somewhat more (vs. 51% overall -- 18% higher) but only 18% say significantly more.
-
-6. **The US and Australia are most conservative** -- 23% and 24% "about the same" respectively (vs. 19% overall -- 21-26% higher).
-
-7. **Enterprise brands are slightly more cautious** (7% somewhat less vs. 4% non-enterprise), but also more likely to be fully coordinated (27% significantly more vs. 24%).
-:::
-:::
-::::
-
-::: {.q-footer}
-Q30: Compared to routine marketing activations, how much creative freedom does your team typically have when activating around cultural moments? (n=2,072)
-:::
-
-
-## Survey demographics: Respondent age distribution {.q-slide}
+## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
@@ -3041,7 +2877,7 @@ make_bar("Q31-")
 ::::
 
 
-## Survey demographics: Respondent gender {.q-slide}
+## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
@@ -3053,7 +2889,7 @@ make_bar("Q32-")
 ::::
 
 
-## Survey demographics: Respondent country {.q-slide}
+## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
