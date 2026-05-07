@@ -1141,7 +1141,7 @@ Q13: How prepared is your team to activate in time during the 2026 World Cup? (n
 :::
 
 
-## Only 38% of teams are fully ready for the World Cup with plans, assets, and triggers in place {.q-slide}
+## 88% of teams plan to increase their marketing budget for summer sporting events, with 19% planning increases above 50% {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1251,7 +1251,7 @@ Q14: Will your team increase its marketing budget for summer sporting events com
 ## Speed and Stakes {.divider-orange}
 
 
-## 88% of teams plan to increase their marketing budget for summer sporting events, with 19% planning increases above 50% {.q-slide}
+## 45% of marketers plan to use AI for personalized messaging in summer sporting activations {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1358,7 +1358,7 @@ Q15: Are you planning to use AI specifically to power your summer sporting activ
 :::
 
 
-## 45% of marketers plan to use AI for personalized messaging in summer sporting activations {.q-slide}
+## 38% of teams have cultural moment activations ready 3-6 months in advance {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1465,7 +1465,7 @@ Q16: How far ahead of a planned cultural moment (e.g. World Cup, Wimbledon) does
 :::
 
 
-## 38% of teams have cultural moment activations ready 3-6 months in advance {.q-slide}
+## Only 16% of teams can launch a reactive campaign within 2 hours of an unexpected viral moment {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1572,7 +1572,7 @@ Q17: When an unexpected viral moment or cultural flashpoint hits, how quickly ca
 :::
 
 
-## Only 16% of teams can launch a reactive campaign within 2 hours of an unexpected viral moment {.q-slide}
+## 37% of brands launched their most successful cultural moment activation within 1-3 days {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1679,7 +1679,7 @@ Q18: Thinking about your most successful cultural moment activation in the past 
 :::
 
 
-## 37% of brands launched their most successful cultural moment activation within 1-3 days {.q-slide}
+## Two-thirds (66%) of teams missed at least one cultural moment in the past year due to speed {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1786,7 +1786,7 @@ Q19: In the past 12 months, how many cultural moments did your team miss because
 :::
 
 
-## 37% of brands launched their most successful cultural moment activation within 1-3 days {.q-slide}
+## Over half (53%) attribute 10-20% of marketing revenue to cultural moment activations {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -1896,7 +1896,7 @@ Q20: Approximately what share of your total marketing revenue comes from cultura
 ## Channels, Data, and Personalization {.divider-orange}
 
 
-## Two-thirds (66%) of teams missed at least one cultural moment in the past year due to speed {.q-slide}
+## 63% of teams assess cultural moment participation case-by-case rather than using formal guidelines {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2003,7 +2003,7 @@ Q21: How does your team decide whether or not it has a credible reason to partic
 :::
 
 
-## Over half (53%) attribute 10-20% of marketing revenue to cultural moment activations {.q-slide}
+## Social media dominates as the top cultural moment channel at 46%, nearly 3x the next channel {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2110,7 +2110,7 @@ Q22: Which channel delivers the best results for your cultural moment activation
 :::
 
 
-## 63% of teams assess cultural moment participation case-by-case rather than using formal guidelines {.q-slide}
+## 91% of marketers say their channels are at least mostly coordinated around cultural moments {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2217,7 +2217,7 @@ Q23: In your opinion, how coordinated are your channels when you activate around
 :::
 
 
-## Social media dominates as the top cultural moment channel at 46%, nearly 3x the next channel {.q-slide}
+## Only 41% of marketers are "very confident" they reach the right customers with the right message during cultural moments {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2327,7 +2327,7 @@ Q24: When you activate around a cultural moment, how confident are you that your
 ## The AI Advantage {.divider-orange}
 
 
-## 91% of marketers say their channels are at least mostly coordinated around cultural moments {.q-slide}
+## AI-assisted content creation is the top accelerator for cultural moment activations, chosen by 35% {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2434,7 +2434,7 @@ Q25: What would most help your team halve the time it takes to launch a cultural
 :::
 
 
-## Only 41% of marketers are "very confident" they reach the right customers with the right message during cultural moments {.q-slide}
+## 42% of teams use AI for content generation in cultural moment activations, but 8% don't use AI at all {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2541,7 +2541,7 @@ Q26: How does your team currently use AI or automation for cultural moment activ
 :::
 
 
-## AI-assisted content creation is the top accelerator for cultural moment activations, chosen by 35% {.q-slide}
+## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2651,7 +2651,7 @@ Q27: Some teams now define the outcome they want and let AI generate the content
 ## Performance and Confidence {.divider-orange}
 
 
-## 42% of teams use AI for content generation in cultural moment activations, but 8% don't use AI at all {.q-slide}
+## Brand building metrics are the primary measure of cultural moment success for 43%, but US marketers favor a dual commercial-and-brand approach {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2758,7 +2758,7 @@ Q28: What is your primary measure of success for cultural moment activations? (n
 :::
 
 
-## 42% of teams use AI for content generation in cultural moment activations, but 8% don't use AI at all {.q-slide}
+## 37% say cultural moments outperform routine calendar marketing, while 56% say performance is about the same {.q-slide}
 
 :::: {.columns}
 ::: {.column width="62%"}
@@ -2865,7 +2865,7 @@ Q29: Compared to your routine calendar marketing (e.g. Black Friday, Cyber Monda
 :::
 
 
-## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
+## Respondent age distribution {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
@@ -2877,7 +2877,7 @@ make_bar("Q31-")
 ::::
 
 
-## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
+## Respondent gender split {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
@@ -2889,7 +2889,7 @@ make_bar("Q32-")
 ::::
 
 
-## 79% of marketers are positive about or already practicing "vibe marketing" with AI-driven activations {.q-slide}
+## Respondent region distribution {.q-slide}
 :::: {.columns}
 ::: {.column width="100%"}
 ```{r}
