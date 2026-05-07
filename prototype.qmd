@@ -97,23 +97,15 @@ make_grid <- function(q_prefix, group_var, color = bar_color) { tryCatch({
   groups <- sort(unique(na.omit(dat_edit[[group_var]])))
   n_groups <- length(groups)
 
-  info <- var_dict %>% filter(var_prefix == q_prefix); qtype <- info$qtype[1]
-  if (qtype %in% c("singleselect","derived")) {
-    col <- get_stub(q_prefix, dat_edit)[1]; dd <- dat_edit %>% filter(!is.na(.data[[col]]))
-    overall <- dd %>% count(Option = .data[[col]]) %>% mutate(Overall = round(n/sum(n)*100)) %>% select(Option, Overall)
-    by_g <- dd %>% filter(!is.na(.data[[group_var]])) %>% group_by(.data[[group_var]]) %>% mutate(n_g = n()) %>%
-      count(Option = .data[[col]], n_g) %>% mutate(pct = round(n/n_g*100)) %>%
-      ungroup() %>% select(!!group_var, Option, pct) %>% pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
-    wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
-  } else {
-    stbs <- get_stub(q_prefix, dat_edit); opts <- sub("^.*MULTISELECT [|] ", "", stbs)
-    overall <- tibble(Option = opts, Overall = vapply(stbs, function(s) round(mean(dat_edit[[s]]=="Selected",na.rm=TRUE)*100), numeric(1)))
-    by_g <- bind_rows(lapply(groups, function(g) {
-      d_g <- dat_edit %>% filter(.data[[group_var]] == g)
-      tibble(!!group_var := g, Option = opts, pct = vapply(stbs, function(s) round(mean(d_g[[s]]=="Selected",na.rm=TRUE)*100), numeric(1)))
-    })) %>% pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
-    wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
-  }
+  # Use make_1d_mat for all percentages (force_to_100 = TRUE)
+  r_all <- make_1d_mat(dta = dat_edit, q_prefix = q_prefix, var_dict = var_dict, force_to_100 = TRUE)
+  overall <- tibble(Option = as.character(r_all[[1]]), Overall = as.numeric(r_all$share_perc))
+  by_g <- bind_rows(lapply(groups, function(g) {
+    d_g <- dat_edit %>% filter(.data[[group_var]] == g)
+    r_g <- make_1d_mat(dta = d_g, q_prefix = q_prefix, var_dict = var_dict, force_to_100 = TRUE)
+    tibble(!!group_var := g, Option = as.character(r_g[[1]]), pct = as.numeric(r_g$share_perc))
+  })) %>% pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
+  wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
   wide <- wide %>% mutate(Option = stri_trans_general(Option, "Latin-ASCII"))
 
   n_bars <- nrow(wide)
@@ -211,31 +203,16 @@ make_grid <- function(q_prefix, group_var, color = bar_color) { tryCatch({
 })}
 
 make_xt_table <- function(q_prefix, group_var) {
-  info <- var_dict %>% filter(var_prefix == q_prefix)
-  qtype <- info$qtype[1]
   groups <- sort(unique(na.omit(dat_edit[[group_var]])))
-  if (qtype %in% c("singleselect","derived")) {
-    col <- get_stub(q_prefix, dat_edit)[1]
-    dd <- dat_edit %>% filter(!is.na(.data[[col]]))
-    overall <- dd %>% count(Option = .data[[col]]) %>%
-      mutate(Overall = round(n/sum(n)*100)) %>% select(Option, Overall)
-    by_g <- dd %>% filter(!is.na(.data[[group_var]])) %>%
-      group_by(.data[[group_var]]) %>% mutate(n_g = n()) %>%
-      count(Option = .data[[col]], n_g) %>% mutate(pct = round(n/n_g*100)) %>%
-      ungroup() %>% select(!!group_var, Option, pct) %>%
-      pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
-    wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
-  } else {
-    stbs <- get_stub(q_prefix, dat_edit); opts <- sub("^.*MULTISELECT \\| ", "", stbs)
-    overall <- tibble(Option = opts,
-      Overall = vapply(stbs, function(s) round(mean(dat_edit[[s]]=="Selected",na.rm=TRUE)*100), numeric(1)))
-    by_g <- bind_rows(lapply(groups, function(g) {
-      d_g <- dat_edit %>% filter(.data[[group_var]] == g)
-      tibble(!!group_var := g, Option = opts,
-        pct = vapply(stbs, function(s) round(mean(d_g[[s]]=="Selected",na.rm=TRUE)*100), numeric(1)))
-    })) %>% pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
-    wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
-  }
+  # Use make_1d_mat for all percentages (force_to_100 = TRUE)
+  r_all <- make_1d_mat(dta = dat_edit, q_prefix = q_prefix, var_dict = var_dict, force_to_100 = TRUE)
+  overall <- tibble(Option = as.character(r_all[[1]]), Overall = as.numeric(r_all$share_perc))
+  by_g <- bind_rows(lapply(groups, function(g) {
+    d_g <- dat_edit %>% filter(.data[[group_var]] == g)
+    r_g <- make_1d_mat(dta = d_g, q_prefix = q_prefix, var_dict = var_dict, force_to_100 = TRUE)
+    tibble(!!group_var := g, Option = as.character(r_g[[1]]), pct = as.numeric(r_g$share_perc))
+  })) %>% pivot_wider(names_from = !!group_var, values_from = pct, values_fill = 0)
+  wide <- overall %>% left_join(by_g, by = "Option") %>% arrange(desc(Overall))
   wide <- wide %>% mutate(Option = stri_trans_general(Option, "Latin-ASCII"))
   num_cols <- names(wide)[sapply(wide, is.numeric)]
   disp <- wide; for (cc in num_cols) disp[[cc]] <- paste0(disp[[cc]], "%")
@@ -583,17 +560,17 @@ make_xt_table("Q8-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Apparel/fashion brands are 25% more likely to have activated around both planned and reactive moments** compared to the overall average (60% vs. 48% overall), the.
+1. **Apparel/fashion brands are 25% more likely to have activated around both planned and reactive moments** compared to the overall average (60% vs. 48% overall)
 
-2. **Enterprise companies are 17% more likely to have activated around both planned and reactive moments** than the overall average (56% vs. 48% overall), and are far less.
+2. **Enterprise companies are 17% more likely to have activated around both planned and reactive moments** than the overall average (56% vs. 48% overall)
 
-3. **Both B2B and B2C companies are 13% more likely to have activated around both moment types** compared to the overall average (54% vs. 48% overall), while B2C-only firms.
+3. **Both B2B and B2C companies are 13% more likely to have activated around both moment types** compared to the overall average (54% vs. 48% overall)
 
-4. **Founders/CEOs are 2.1x more likely to report no cultural moment activations** compared to the overall average (23% vs. 11% overall), while VP or Head of Marketing.
+4. **Founders/CEOs are 2.1x more likely to report no cultural moment activations** compared to the overall average (23% vs. 11% overall)
 
-5. **APAC respondents are 15% more likely to have activated around both planned and reactive moments** compared to the overall average (55% vs. 48% overall), making them the.
+5. **APAC respondents are 15% more likely to have activated around both planned and reactive moments** compared to the overall average (55% vs. 48% overall)
 
-6. **Health and sporting goods brands are 39% more likely than average to have focused mainly on planned moments** (43% vs. 31% overall), suggesting these brands lean toward.
+6. **Health and sporting goods brands are 39% more likely than average to have focused mainly on planned moments** (43% vs. 31% overall)
 :::
 :::
 ::::
@@ -690,17 +667,17 @@ make_xt_table("Q9-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents are 21% more likely to have activated around major regional/national sporting events** compared to the overall average (51% vs. 42% overall), while APAC.
+1. **US respondents are 21% more likely to have activated around major regional/national sporting events** compared to the overall average (51% vs. 42% overall)
 
-2. **Apparel/fashion brands are 2.2x more likely to have activated around fashion or style moments** like Met Gala or Fashion Weeks compared to the overall average (49% vs.
+2. **Apparel/fashion brands are 2.2x more likely to have activated around fashion or style moments** like Met Gala or Fashion Weeks (49% vs. 22% overall).
 
-3. **C-Suite respondents are 36% more likely to have activated around major regional sporting events** than the overall average (57% vs. 42% overall), and are also 24% more.
+3. **C-Suite respondents are 36% more likely to have activated around major regional sporting events** than the overall average (57% vs. 42% overall)
 
-4. **Enterprise companies are 22% more likely to have activated around global sporting events** compared to the overall average (45% vs. 37% overall), while non-enterprise.
+4. **Enterprise companies are 22% more likely to have activated around global sporting events** compared to the overall average (45% vs. 37% overall)
 
-5. **Both B2B and B2C companies are 10% more likely to have activated around major music events** compared to B2C-only firms (45% vs. 35%), and are also 24% more likely to.
+5. **Both B2B and B2C companies are 29% more likely to have activated around major music events** compared to B2C-only firms (45% vs. 35%)
 
-6. **Multi-category retailers are 16% more likely to have activated around cultural awareness moments** compared to the overall average (44% vs. 38% overall), while Health.
+6. **Multi-category retailers are 16% more likely to have activated around cultural awareness moments** compared to the overall average (44% vs. 38% overall)
 :::
 :::
 ::::
@@ -800,17 +777,17 @@ make_xt_table("Q10-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **EMEA respondents are 9% more likely to be planning World Cup activations** compared to the overall average (49% vs. 45% overall), while APAC trails at 36%. EMEA also.
+1. **EMEA respondents are 9% more likely to be planning World Cup activations** compared to the overall average (49% vs. 45% overall)
 
-2. **APAC respondents are 2.2x more likely to be planning Commonwealth Games activations** compared to the overall average (29% vs. 13% overall) and are 57% more likely to be.
+2. **APAC respondents are 2.2x more likely to be planning Commonwealth Games activations** compared to the overall average (29% vs. 13% overall)
 
-3. **Enterprise companies are 22% more likely to be planning World Cup activations** than the overall average (55% vs. 45% overall), and are 43% more likely to be planning.
+3. **Enterprise companies are 22% more likely to be planning World Cup activations** than the overall average (55% vs. 45% overall)
 
-4. **C-Suite respondents are 33% more likely to be planning World Cup activations** compared to the overall average (60% vs. 45% overall), the highest of any role segment.
+4. **C-Suite respondents are 33% more likely to be planning World Cup activations** compared to the overall average (60% vs. 45% overall)
 
-5. **VP or Head of Marketing respondents are 53% more likely to be planning Tour de France activations** than the overall average (26% vs. 17% overall), and are 45% more.
+5. **VP or Head of Marketing respondents are 53% more likely to be planning Tour de France activations** than the overall average (26% vs. 17% overall)
 
-6. **The "Other" vertical is the least likely to plan World Cup activations** at just 31% (vs. 45% overall -- 31% below average), and is 69% more likely to say they don't.
+6. **The "Other" vertical is the least likely to plan World Cup activations** at just 31% (vs. 45% overall -- 31% below average)
 :::
 :::
 ::::
@@ -907,17 +884,17 @@ make_xt_table("Q11-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Apparel/fashion brands are 37% more likely to plan curated product collections or limited-edition drops** tied to matches or teams compared to the overall average (70%.
+1. **Apparel/fashion brands are 37% more likely to plan curated product drops** tied to matches or teams (70% vs. 51% overall).
 
-2. **VP or Head of Marketing respondents are 38% more likely to plan personalized messaging** based on team or sport preferences compared to the overall average (44% vs. 32%.
+2. **VP/Head of Marketing respondents are 38% more likely to plan personalized messaging** based on team preferences (44% vs. 32% overall).
 
-3. **Enterprise companies are 26% more likely to plan AI-powered customer service** during events compared to the overall average (34% vs. 27% overall), and are 19% more.
+3. **Enterprise companies are 26% more likely to plan AI-powered customer service** during events compared to the overall average (34% vs. 27% overall)
 
-4. **Both B2B and B2C companies are 19% more likely to plan AI-powered customer service** compared to B2C-only firms (32% vs. 18%), and are 30% more likely to plan curated.
+4. **Both B2B and B2C companies are 78% more likely to plan AI-powered customer service** compared to B2C-only firms (32% vs. 18%)
 
-5. **Multi-category retailers are 41% more likely to plan AI-powered customer service** during events compared to the overall average (38% vs. 27% overall), suggesting they.
+5. **Multi-category retailers are 41% more likely to plan AI-powered customer service** during events compared to the overall average (38% vs. 27% overall)
 
-6. **APAC respondents are 16% more likely to plan curated product collections** compared to the overall average (59% vs. 51% overall), while EMEA trails at 48%. All three.
+6. **APAC respondents are 16% more likely to plan curated product collections** compared to the overall average (59% vs. 51% overall)
 :::
 :::
 ::::
@@ -1014,17 +991,17 @@ make_xt_table("Q12-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents overwhelmingly cite American football as the strongest-performing event** at 60%, which is 3.3x the overall rate of 18%. In contrast, international.
+1. **US respondents overwhelmingly cite American football as the strongest-performing event** at 60%, which is 3.3x the overall rate of 18%.
 
-2. **EMEA respondents are 20% more likely to cite international football tournaments** as their top performer compared to the overall average (30% vs. 25% overall), and are.
+2. **EMEA respondents are 20% more likely to cite international football tournaments** as their top performer compared to the overall average (30% vs. 25% overall)
 
-3. **APAC respondents are 73% more likely to cite motorsport** as delivering the strongest results compared to the overall average (19% vs. 11% overall), and are the only.
+3. **APAC respondents are 73% more likely to cite motorsport** as delivering the strongest results compared to the overall average (19% vs. 11% overall)
 
-4. **Health and sporting goods brands are 47% more likely to cite the Olympics** as their top-performing event compared to the overall average (25% vs. 17% overall), while.
+4. **Health and sporting goods brands are 47% more likely to cite the Olympics** as their top-performing event compared to the overall average (25% vs. 17% overall)
 
-5. **C-Suite respondents are 45% more likely to cite motorsport** as delivering the strongest results compared to the overall average (16% vs. 11% overall), and are also 30%.
+5. **C-Suite respondents are 45% more likely to cite motorsport** as delivering the strongest results compared to the overall average (16% vs. 11% overall)
 
-6. **Enterprise companies are 12% more likely to cite international football tournaments** as their top performer compared to the overall average (28% vs. 25% overall), while.
+6. **Enterprise companies are 12% more likely to cite international football tournaments** as their top performer compared to the overall average (28% vs. 25% overall)
 :::
 :::
 ::::
@@ -1121,17 +1098,17 @@ make_xt_table("Q13-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Enterprise companies are 21% more likely to be fully ready** with plans, assets, and triggers in place compared to the overall average (46% vs. 38% overall), while.
+1. **Enterprise companies are 21% more likely to be fully ready** with plans, assets, and triggers in place compared to the overall average (46% vs. 38% overall)
 
-2. **APAC respondents are the least fully prepared**, with only 31% reporting "Starting XI ready" status (vs. 38% overall -- 18% below average), while 55% are still building.
+2. **APAC respondents are the least fully prepared**, with only 31% reporting "Starting XI ready" status (vs. 38% overall -- 18% below average)
 
-3. **Founders/CEOs are 32% more likely to be fully ready** compared to the overall average (50% vs. 38% overall), the highest of any role. In contrast, Directors/Managers and.
+3. **Founders/CEOs are 32% more likely to be fully ready** compared to the overall average (50% vs. 38% overall)
 
-4. **Apparel/fashion brands are 26% more likely to be fully ready** compared to the overall average (48% vs. 38% overall), while Home goods brands are the least ready at 36%.
+4. **Apparel/fashion brands are 26% more likely to be fully ready** compared to the overall average (48% vs. 38% overall)
 
-5. **B2C-only companies are 75% more likely to have no World Cup activation plans at all** compared to Both B2B and B2C firms (7% vs. 3%), and trail on full readiness (36%.
+5. **B2C-only companies are 2.3x more likely to have no World Cup activation plans at all** compared to Both B2B and B2C firms (7% vs. 3%)
 
-6. **Health and sporting goods brands are 11% more likely to still be building assets** compared to the overall average (50% vs. 45% overall), despite being a vertical with a.
+6. **Health and sporting goods brands are 11% more likely to still be building assets** compared to the overall average (50% vs. 45% overall)
 :::
 :::
 ::::
@@ -1228,17 +1205,17 @@ make_xt_table("Q14-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Founders/CEOs are 58% more likely to plan a significant budget increase (>50%)** compared to the overall average (30% vs. 19% overall), the highest of any role segment.
+1. **Founders/CEOs are 58% more likely to plan a significant budget increase (>50%)** compared to the overall average (30% vs. 19% overall)
 
-2. **EMEA respondents are 11% more likely to plan a significant budget increase (>50%)** compared to the overall average (21% vs. 19% overall), while APAC trails at 16%. EMEA.
+2. **EMEA respondents are 11% more likely to plan a significant budget increase (>50%)** compared to the overall average (21% vs. 19% overall)
 
-3. **Health and sporting goods brands are 23% more likely to plan a substantial (21-50%) budget increase** compared to the overall average (48% vs. 39% overall), the highest.
+3. **Health and sporting goods brands are 23% more likely to plan a substantial (21-50%) budget increase** compared to the overall average (48% vs. 39% overall)
 
-4. **Both B2B and B2C companies are 31% more likely to plan significant (>50%) budget increases** compared to B2C-only firms (21% vs. 16%), while B2C-only companies are 44%.
+4. **Both B2B and B2C companies are 31% more likely to plan significant (>50%) budget increases** compared to B2C-only firms (21% vs. 16%)
 
-5. **The "Other" vertical is the most conservative on budget increases**, with the lowest rate of substantial increases (30% vs. 39% overall -- 23% below average) and the.
+5. **The "Other" vertical is the most conservative on budget increases**, with the lowest rate of substantial increases (30% vs. 39% overall -- 23% below average)
 
-6. **Multi-category retailers are 26% more likely to plan significant (>50%) budget increases** compared to the overall average (24% vs. 19% overall), and Apparel/fashion.
+6. **Multi-category retailers are 26% more likely to plan significant (>50%) budget increases** compared to the overall average (24% vs. 19% overall)
 :::
 :::
 ::::
@@ -1338,15 +1315,15 @@ make_xt_table("Q15-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Founders are 42% more likely than the overall population to plan using AI for faster campaign production** (47% vs. 33% overall). This contrasts sharply with VPs or.
+1. **Founders are 42% more likely than the overall population to plan using AI for faster campaign production** (47% vs. 33% overall).
 
-2. **C-Suite respondents are 16% more likely to plan AI-personalized messaging for sporting activations** (52% vs. 45% overall), suggesting senior leaders see personalization.
+2. **C-Suite respondents are 16% more likely to plan AI-personalized messaging for sporting activations** (52% vs. 45% overall)
 
 3. **VP or Head of Marketing respondents are 29% more likely to plan AI-powered customer service during event windows** (31% vs. 24% overall), the highest of any role segment.
 
-4. **Enterprise respondents are 12% more likely than the overall population to use AI for faster campaign production** (37% vs. 33% overall), while non-enterprise brands.
+4. **Enterprise respondents are 12% more likely than the overall population to use AI for faster campaign production** (37% vs. 33% overall)
 
-5. **Health and sporting goods brands are 13% more likely to plan AI-personalized messaging** (51% vs. 45% overall), a natural fit given their direct connection to sporting.
+5. **Health and sporting goods brands are 13% more likely to plan AI-personalized messaging** (51% vs. 45% overall)
 
 6. **Apparel/fashion brands are 42% more likely than the overall population to use AI for faster campaign production** (47% vs. 33% overall), the highest of any vertical.
 :::
@@ -1447,13 +1424,13 @@ Key takeaways
 
 1. **APAC respondents are 18% more likely than the overall population to plan more than 6 months ahead** (26% vs. 22% overall), the most forward-planning region.
 
-2. **C-Suite respondents are 13% more likely to have activations ready 3-6 months before** (43% vs. 38% overall), while Founders/CEOs are the least likely at 33% -- 13% below.
+2. **C-Suite respondents are 13% more likely to have activations ready 3-6 months before** (43% vs. 38% overall), while Founders/CEOs are the least likely at 33%.
 
 3. **Founders/CEOs are 100% more likely to launch the week of the event** (4% vs. 2% overall), suggesting smaller founder-led teams operate with tighter timelines.
 
-4. **Enterprise brands are 18% more likely to plan more than 6 months ahead** (26% vs. 22% overall), while non-enterprise brands lag at 19%, reflecting longer enterprise.
+4. **Enterprise brands are 18% more likely to plan more than 6 months ahead** (26% vs. 22% overall)
 
-5. **Health and sporting goods brands are 32% less likely to plan more than 6 months ahead** (15% vs. 22% overall), the lowest of any vertical, suggesting they rely on.
+5. **Health and sporting goods brands are 32% less likely to plan more than 6 months ahead** (15% vs. 22% overall), the lowest of any vertical.
 
 6. **B2C-only brands are 14% less likely to plan more than 6 months in advance** (19% vs. 22% overall) compared to Both B2B and B2C brands at 23%.
 :::
@@ -1552,17 +1529,17 @@ make_xt_table("Q17-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents are 56% more likely to be able to launch within 2 hours** (25% vs. 16% overall), far outpacing EMEA at just 13% -- making US teams nearly 2x as fast as.
+1. **US respondents are 56% more likely to be able to launch within 2 hours** (25% vs. 16% overall), far outpacing EMEA at just 13%.
 
 2. **Founders/CEOs are 50% more likely to get a campaign live within 2 hours** (24% vs. 16% overall), likely reflecting shorter approval chains in founder-led organizations.
 
-3. **Directors or Managers are 25% less likely than overall to launch within 2 hours** (12% vs. 16% overall), the slowest role segment, suggesting middle management faces.
+3. **Directors or Managers are 25% less likely than overall to launch within 2 hours** (12% vs. 16% overall), the slowest role segment.
 
 4. **Home goods brands are 20% more likely to respond within 6 hours** (30% vs. 25% overall), the fastest vertical for this time window.
 
-5. **Health and sporting goods brands are 31% less likely to respond within 2 hours** (11% vs. 16% overall), though they index higher at the 12-hour mark (25% vs. 22%.
+5. **Health and sporting goods brands are 31% less likely to respond within 2 hours** (11% vs. 16% overall)
 
-6. **Non-enterprise brands are 12% more likely to respond within 6 hours** (28% vs. 25% overall), while enterprise brands lag at 23%, suggesting smaller organizations are.
+6. **Non-enterprise brands are 12% more likely to respond within 6 hours** (28% vs. 25% overall), while enterprise brands lag at 23%.
 :::
 :::
 ::::
@@ -1663,11 +1640,11 @@ Key takeaways
 
 2. **Founders/CEOs are 53% more likely to have achieved success with sub-24-hour turnarounds** (26% vs. 17% overall), reinforcing the speed advantage of founder-led teams.
 
-3. **VPs or Heads of Marketing are 52% more likely to cite 4-7 day timelines for their best activation** (35% vs. 23% overall), suggesting VP-level teams operate in a.
+3. **VPs or Heads of Marketing are 52% more likely to cite 4-7 day timelines for their best activation** (35% vs. 23% overall)
 
-4. **Health and sporting goods brands are 52% more likely to take 4-7 days** (35% vs. 23% overall), the highest of any vertical for this timeframe, while being 41% less.
+4. **Health and sporting goods brands are 52% more likely to take 4-7 days** (35% vs. 23% overall), the highest of any vertical for this timeframe.
 
-5. **Enterprise brands are 25% more likely to take more than 2 weeks for their best activation** (10% vs. 8% overall), and 12% less likely to launch under 24 hours (15% vs.
+5. **Enterprise brands are 25% more likely to take more than 2 weeks for their best activation** (10% vs. 8% overall)
 
 6. **Non-enterprise brands are 12% more likely to have launched their best activation under 24 hours** (19% vs. 17% overall), confirming smaller brands' speed advantage.
 :::
@@ -1766,17 +1743,17 @@ make_xt_table("Q19-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Health and sporting goods brands are 28% more likely to have missed 1-2 moments** (60% vs. 47% overall) and 29% less likely to have missed none (24% vs. 34% overall),.
+1. **Health and sporting goods brands are 28% more likely to have missed 1-2 moments** (60% vs. 47% overall) and 29% less likely to have missed none (24% vs. 34% overall)
 
-2. **VPs or Heads of Marketing are 17% more likely to report missing 1-2 moments** (55% vs. 47% overall), the highest of any role, while being 24% less likely to report.
+2. **VPs or Heads of Marketing are 17% more likely to report missing 1-2 moments** (55% vs. 47% overall), the highest of any role.
 
-3. **APAC respondents are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall), while US respondents are 15% more likely to report missing none (39% vs. 34%.
+3. **APAC respondents are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall)
 
-4. **Non-enterprise brands are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall), while enterprise brands are 13% more likely to have missed 3-5 moments (17%.
+4. **Non-enterprise brands are 6% more likely to have missed 1-2 moments** (50% vs. 47% overall)
 
 5. **Founders/CEOs are 75% more likely to report missing more than 5 moments** (7% vs. 4% overall), the highest of any role segment for extreme misses.
 
-6. **Multi-category retailers are 13% more likely to have missed 3-5 moments** (17% vs. 15% overall) and 25% more likely to miss more than 5 (5% vs. 4% overall), suggesting.
+6. **Multi-category retailers are 13% more likely to have missed 3-5 moments** (17% vs. 15% overall) and 25% more likely to miss more than 5 (5% vs. 4% overall)
 :::
 :::
 ::::
@@ -1875,15 +1852,15 @@ Key takeaways
 
 1. **Health and sporting goods brands are 15% more likely to attribute 10-20% of revenue to cultural moments** (61% vs. 53% overall), the highest of any vertical.
 
-2. **Apparel/fashion brands are 29% more likely to report more than 20% of revenue from cultural moments** (27% vs. 21% overall), the highest vertical for top-tier revenue.
+2. **Apparel/fashion brands are 29% more likely to report more than 20% of revenue from cultural moments** (27% vs. 21% overall)
 
 3. **VP or Head of Marketing respondents are 12% more likely to report 10-20% revenue attribution** (59% vs. 53% overall), while Founders/CEOs are 17% less likely at 44%.
 
-4. **Founders/CEOs are 19% more likely to report more than 20% of revenue from cultural moments** (25% vs. 21% overall), the highest of any role, suggesting founder-led.
+4. **Founders/CEOs are 19% more likely to report more than 20% of revenue from cultural moments** (25% vs. 21% overall), the highest of any role.
 
 5. **Enterprise brands are 14% more likely to attribute more than 20% of revenue to cultural moments** (24% vs. 21% overall) compared to 19% for non-enterprise brands.
 
-6. **Both B2B and B2C brands are 35% more likely to attribute more than 20% of revenue** (23% vs. 17% for B2C-only), while B2C-only brands are 30% more likely to not measure.
+6. **Both B2B and B2C brands are 35% more likely to attribute more than 20% of revenue** (23% vs. 17% for B2C-only)
 :::
 :::
 ::::
@@ -1983,17 +1960,17 @@ make_xt_table("Q21-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Health and sporting goods brands are 16% more likely to assess cultural moments case-by-case** (73% vs. 63% overall), the highest of any vertical, while being 25% less.
+1. **Health and sporting goods brands are 16% more likely to assess cultural moments case-by-case** (73% vs. 63% overall), the highest of any vertical.
 
 2. **VP or Head of Marketing respondents are 11% more likely to assess case-by-case** (70% vs. 63% overall), while Founders/CEOs are 11% less likely (56% vs. 63% overall).
 
-3. **Founders/CEOs are 18% more likely to have clear brand guidelines** (33% vs. 28% overall) but also 100% more likely to make decisions based on gut calls (6% vs. 3%.
+3. **Founders/CEOs are 18% more likely to have clear brand guidelines** (33% vs. 28% overall)
 
-4. **Enterprise brands are 21% more likely to have clear brand guidelines** (34% vs. 28% overall) compared to 25% for non-enterprise brands, reflecting more formalized.
+4. **Enterprise brands are 21% more likely to have clear brand guidelines** (34% vs. 28% overall)
 
 5. **Non-enterprise brands are 33% more likely to rely on gut calls** (4% vs. 3% overall) and just 1% for enterprise, suggesting smaller brands lack formal frameworks.
 
-6. **Both B2B and B2C brands are 7% more likely to have clear brand guidelines** (30% vs. 28% overall) compared to B2C-only at 25%, while B2C-only brands are 33% more likely.
+6. **Both B2B and B2C brands are 7% more likely to have clear brand guidelines** (30% vs. 28% overall) compared to B2C-only at 25%.
 :::
 :::
 ::::
@@ -2090,17 +2067,17 @@ make_xt_table("Q22-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Apparel/fashion brands are 17% more likely to cite social media as their best channel** (54% vs. 46% overall), the highest of any vertical, reinforcing social's.
+1. **Apparel/fashion brands are 17% more likely to cite social media as their best channel** (54% vs. 46% overall)
 
-2. **US respondents are 80% more likely to cite SMS as their best-performing channel** (9% vs. 5% overall), while EMEA is 40% less likely at just 3%, reflecting different.
+2. **US respondents are 80% more likely to cite SMS as their best-performing channel** (9% vs. 5% overall)
 
-3. **EMEA respondents are 30% more likely to cite WhatsApp as a top channel** (13% vs. 10% overall), while the US is 70% less likely at just 3%, reflecting WhatsApp's.
+3. **EMEA respondents are 30% more likely to cite WhatsApp as a top channel** (13% vs. 10% overall)
 
 4. **Health and sporting goods brands are 80% more likely to cite WhatsApp as their best channel** (18% vs. 10% overall), the highest of any vertical.
 
-5. **VP or Head of Marketing respondents are 60% more likely to cite influencer or creator partnerships** (16% vs. 10% overall), the highest of any role, while Founders/CEOs.
+5. **VP or Head of Marketing respondents are 60% more likely to cite influencer or creator partnerships** (16% vs. 10% overall), the highest of any role.
 
-6. **Enterprise brands are 43% more likely to cite ads (TV, YouTube, Podcasts) as their best channel** (10% vs. 7% overall), reflecting larger media budgets, compared to just.
+6. **Enterprise brands are 43% more likely to cite ads (TV, YouTube, Podcasts) as their best channel** (10% vs. 7% overall), reflecting larger media budgets.
 :::
 :::
 ::::
@@ -2197,17 +2174,17 @@ make_xt_table("Q23-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Founders and CEOs are 18% more likely than average to report full coordination** across channels during cultural moments (47% vs. 40% overall), suggesting senior leaders.
+1. **Founders and CEOs are 18% more likely than average to report full coordination** across channels during cultural moments (47% vs. 40% overall)
 
-2. **Directors and Managers are 12% more likely to say channels are only "mostly coordinated"** rather than fully coordinated (57% vs. 51% overall), while being 18% less.
+2. **Directors and Managers are 12% more likely to say channels are only "mostly coordinated"** rather than fully coordinated (57% vs. 51% overall)
 
 3. **Apparel/fashion brands are 25% more likely to claim full coordination** compared to the overall average (50% vs. 40% overall), the highest rate of any vertical.
 
-4. **"Other" vertical respondents are 71% more likely to say channels operate independently** (12% vs. 7% overall), suggesting less-defined verticals struggle more with.
+4. **"Other" vertical respondents are 71% more likely to say channels operate independently** (12% vs. 7% overall)
 
 5. **Enterprise companies are 13% more likely to report full coordination** than the overall average (45% vs. 40% overall), while non-enterprise companies lag at 37%.
 
-6. **Both B2B and B2C businesses are 5% more likely than B2C-only to report full coordination** (42% vs. 37%), possibly reflecting more mature orchestration infrastructure.
+6. **Both B2B and B2C businesses are 14% more likely than B2C-only to report full coordination** (42% vs. 37%), possibly reflecting more mature orchestration infrastructure.
 :::
 :::
 ::::
@@ -2304,17 +2281,17 @@ make_xt_table("Q24-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents are 17% more likely to be very confident in their targeting** compared to the overall average (48% vs. 41% overall), while APAC trails at 37% -- a gap of.
+1. **US respondents are 17% more likely to be very confident in their targeting** compared to the overall average (48% vs. 41% overall), while APAC trails at 37%.
 
-2. **Enterprise companies are 20% more likely than average to report high confidence** in personalized targeting (49% vs. 41% overall), compared to just 36% for.
+2. **Enterprise companies are 20% more likely than average to report high confidence** in personalized targeting (49% vs. 41% overall), compared to just 36% for non-enterprise.
 
 3. **Apparel/fashion brands are 20% more likely to be very confident** in reaching the right customers (49% vs. 41% overall), the highest of any vertical.
 
-4. **Health and sporting goods respondents are 24% less likely to report high confidence** (31% vs. 41% overall) and are 18% more likely to say they only segment without true.
+4. **Health and sporting goods respondents are 24% less likely to report high confidence** (31% vs. 41% overall)
 
-5. **C-Suite executives are 22% more likely than average to be very confident** in their targeting precision (50% vs. 41% overall), while Directors/Managers are the least.
+5. **C-Suite executives are 22% more likely than average to be very confident** in their targeting precision (50% vs. 41% overall)
 
-6. **Both B2B and B2C businesses are 16% more likely to report high confidence** compared to B2C-only firms (43% vs. 37%), suggesting dual-model companies invest more in.
+6. **Both B2B and B2C businesses are 16% more likely to report high confidence** compared to B2C-only firms (43% vs. 37%)
 :::
 :::
 ::::
@@ -2418,13 +2395,13 @@ Key takeaways
 
 2. **Health and sporting goods marketers are 20% more likely to choose AI-assisted content creation** (42% vs. 35% overall), the highest of any vertical.
 
-3. **Multi-category retailers are 20% more likely to prioritize real-time customer data** (36% vs. 30% overall) and are 41% less likely to want streamlined approvals (10% vs.
+3. **Multi-category retailers are 20% more likely to prioritize real-time customer data** (36% vs. 30% overall)
 
-4. **APAC is 18% more likely than average to cite streamlined internal approvals** as a top accelerator (20% vs. 17% overall), while US respondents are 24% less likely to.
+4. **APAC is 18% more likely than average to cite streamlined internal approvals** as a top accelerator (20% vs. 17% overall)
 
-5. **Founders/CEOs are 41% less likely to want streamlined approvals** (10% vs. 17% overall) but are 20% more likely to prioritize real-time customer data (36% vs. 30%.
+5. **Founders/CEOs are 41% less likely to want streamlined approvals** (10% vs. 17% overall)
 
-6. **VPs/Heads of Marketing are 24% more likely to want streamlined internal approvals** (21% vs. 17% overall), the highest of any role, suggesting they face the most.
+6. **VPs/Heads of Marketing are 24% more likely to want streamlined internal approvals** (21% vs. 17% overall), the highest of any role.
 :::
 :::
 ::::
@@ -2521,17 +2498,17 @@ make_xt_table("Q26-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents are 75% more likely to say they don't use AI at all** for cultural moment activations (14% vs. 8% overall), while APAC is 25% less likely to say the same.
+1. **US respondents are 75% more likely to say they don't use AI at all** for cultural moment activations (14% vs. 8% overall)
 
-2. **Enterprise companies are 25% more likely to use AI-powered customer service** during event windows (25% vs. 20% overall) and 21% more likely to build full campaigns from.
+2. **Enterprise companies are 25% more likely to use AI-powered customer service** during event windows (25% vs. 20% overall)
 
-3. **Founders/CEOs are 21% more likely to use AI for content generation** (51% vs. 42% overall), the highest rate of any role, but are 63% more likely to report not using AI.
+3. **Founders/CEOs are 21% more likely to use AI for content generation** (51% vs. 42% overall)
 
 4. **C-Suite executives are 36% more likely to use AI for audience segmentation** (45% vs. 33% overall), the highest segmentation adoption among all roles.
 
-5. **B2C-only companies are 50% more likely to not use AI at all** compared to Both B2B and B2C firms (12% vs. 6%), while B2B+B2C companies lead in every AI use case.
+5. **B2C-only companies are 2x more likely to not use AI at all** compared to Both B2B and B2C firms (12% vs. 6%), while B2B+B2C companies lead in every AI use case.
 
-6. **Both B2B and B2C companies are 44% more likely to use AI-powered customer service** than B2C-only firms (23% vs. 16%), suggesting dual-model businesses find more value.
+6. **Both B2B and B2C companies are 44% more likely to use AI-powered customer service** than B2C-only firms (23% vs. 16%)
 :::
 :::
 ::::
@@ -2628,17 +2605,17 @@ make_xt_table("Q27-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Directors and Managers are 13% more likely to be positive about vibe marketing** (61% vs. 54% overall), while Founders/CEOs are 26% less likely to be positive (40% vs.
+1. **Directors and Managers are 13% more likely to be positive about vibe marketing** (61% vs. 54% overall)
 
-2. **Founders/CEOs are 75% more likely to be skeptical about vibe marketing** than average (14% vs. 8% overall), the highest skepticism rate of any role, compared to just 2%.
+2. **Founders/CEOs are 75% more likely to be skeptical about vibe marketing** than average (14% vs. 8% overall), the highest skepticism rate of any role.
 
-3. **Enterprise companies are 20% more likely to already be practicing vibe marketing** compared to non-enterprise (30% vs. 23%), while non-enterprise firms are 67% more.
+3. **Enterprise companies are 30% more likely to already be practicing vibe marketing** compared to non-enterprise (30% vs. 23%)
 
-4. **B2C-only companies are 38% more likely to be skeptical** about vibe marketing compared to Both B2B and B2C firms (11% vs. 6%), and 38% more likely to be unsure (15% vs.
+4. **B2C-only companies are 83% more likely to be skeptical** about vibe marketing compared to Both B2B and B2C firms (11% vs. 6%)
 
 5. **Both B2B and B2C firms are 38% more likely to already be doing vibe marketing** compared to B2C-only firms (29% vs. 21%).
 
-6. **APAC respondents are 11% more likely to feel positive** about vibe marketing (60% vs. 54% overall) and 31% less likely to be unsure (9% vs. 13% overall), showing the.
+6. **APAC respondents are 11% more likely to feel positive** about vibe marketing (60% vs. 54% overall) and 31% less likely to be unsure (9% vs. 13% overall)
 :::
 :::
 ::::
@@ -2738,17 +2715,17 @@ make_xt_table("Q28-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **US respondents are 45% more likely to measure both commercial and brand building** compared to the overall average (45% vs. 31% overall), while EMEA is the most likely.
+1. **US respondents are 45% more likely to measure both commercial and brand building** compared to the overall average (45% vs. 31% overall)
 
-2. **VPs/Heads of Marketing are 26% more likely to prioritize brand building metrics** (54% vs. 43% overall), the highest of any role, while Founders/CEOs are 16% less likely.
+2. **VPs/Heads of Marketing are 26% more likely to prioritize brand building metrics** (54% vs. 43% overall), the highest of any role.
 
-3. **Health and sporting goods brands are 14% more likely to prioritize brand building** (49% vs. 43% overall), the highest vertical rate, while Apparel/fashion is the most.
+3. **Health and sporting goods brands are 14% more likely to prioritize brand building** (49% vs. 43% overall), the highest vertical rate.
 
-4. **Both B2B and B2C companies are 6% more likely to use a dual measurement approach** (33% vs. 28% for B2C-only), while B2C-only firms are 13% more likely to focus on pure.
+4. **Both B2B and B2C companies are 18% more likely to use a dual measurement approach** (33% vs. 28% for B2C-only)
 
-5. **Enterprise and non-enterprise companies measure cultural moments nearly identically** on brand building (42% vs. 43%), though Enterprise is slightly more likely to use a.
+5. **Enterprise and non-enterprise companies measure cultural moments nearly identically** on brand building (42% vs. 43%)
 
-6. **APAC respondents are 9% more likely to prioritize brand building** (47% vs. 43% overall), while US respondents are 16% less likely to focus on brand building alone (36%.
+6. **APAC respondents are 9% more likely to prioritize brand building** (47% vs. 43% overall)
 :::
 :::
 ::::
@@ -2845,15 +2822,15 @@ make_xt_table("Q29-", "size_by_gmv")
 Key takeaways
 :::
 
-1. **Apparel/fashion brands are 19% more likely to say cultural moments outperform** routine calendar marketing (44% vs. 37% overall), the highest of any vertical, while.
+1. **Apparel/fashion brands are 19% more likely to say cultural moments outperform** routine calendar marketing (44% vs. 37% overall), the highest of any vertical.
 
-2. **Enterprise companies are 14% more likely to report cultural moments outperforming** routine marketing (42% vs. 37% overall), compared to 34% for non-enterprise -- a.
+2. **Enterprise companies are 14% more likely to report cultural moments outperforming** routine marketing (42% vs. 37% overall), compared to 34% for non-enterprise.
 
-3. **Both B2B and B2C companies are 25% more likely than B2C-only to say cultural moments outperform** (40% vs. 32%), suggesting that businesses with more complex customer.
+3. **Both B2B and B2C companies are 25% more likely than B2C-only to say cultural moments outperform** (40% vs. 32%)
 
-4. **VPs/Heads of Marketing are 11% more likely to report outperformance** (41% vs. 37% overall), while Directors/Managers are 8% less likely (34% vs. 37% overall) -- the.
+4. **VPs/Heads of Marketing are 11% more likely to report outperformance** (41% vs. 37% overall), while Directors/Managers are 8% less likely (34% vs. 37% overall)
 
-5. **US respondents are 11% less likely to report cultural moment outperformance** (33% vs. 37% overall) and are the most likely region to say performance is "about the same".
+5. **US respondents are 11% less likely to report cultural moment outperformance** (33% vs. 37% overall)
 
 6. **APAC respondents are 29% more likely to say cultural moments underperform** (9% vs. 7% overall), the highest underperformance rate of any region.
 :::
