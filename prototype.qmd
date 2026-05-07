@@ -69,28 +69,15 @@ make_bar <- function(q_prefix) {
 }
 
 make_table <- function(q_prefix) {
-  info <- var_dict %>% filter(var_prefix == q_prefix)
-  qtype <- info$qtype[1]
-  if (qtype %in% c("singleselect", "derived")) {
-    col <- get_stub(q_prefix, dat_edit)[1]
-    dd <- dat_edit %>% filter(!is.na(.data[[col]]))
-    tbl <- dd %>% count(Option = .data[[col]]) %>%
-      mutate(`%` = round(n / sum(n) * 100)) %>% rename(Count = n) %>% arrange(desc(`%`))
-  } else {
-    stbs <- get_stub(q_prefix, dat_edit)
-    opts <- sub("^.*MULTISELECT \\| ", "", stbs)
-    tbl <- tibble(Option = opts,
-      Count = vapply(stbs, function(s) sum(dat_edit[[s]] == "Selected", na.rm=TRUE), integer(1)),
-      `%` = vapply(stbs, function(s) round(mean(dat_edit[[s]] == "Selected", na.rm=TRUE)*100), numeric(1))
-    ) %>% arrange(desc(`%`))
-  }
+  r <- make_1d_mat(dta = dat_edit, q_prefix = q_prefix, var_dict = var_dict, force_to_100 = TRUE)
+  tbl <- tibble(Option = as.character(r[[1]]), `%` = as.numeric(r$share_perc)) %>% arrange(desc(`%`))
   tbl <- tbl %>% mutate(Option = stri_trans_general(Option, "Latin-ASCII"))
   disp <- tbl; disp$`%` <- paste0(disp$`%`, "%")
-  k <- kbl(disp, format = "html", escape = TRUE, align = c("l","r","r")) %>%
+  k <- kbl(disp, format = "html", escape = TRUE, align = c("l","r")) %>%
     kable_styling(bootstrap_options = c("striped","condensed"), font_size = 18, full_width = TRUE) %>%
     row_spec(0, bold = TRUE, background = "#f0ecf1", color = text_color)
   shades <- scales::col_numeric(c("#FFFFFF","#D4A5C4"), domain = c(0, max(tbl$`%`)))(tbl$`%`)
-  column_spec(k, 3, background = shades)
+  column_spec(k, 2, background = shades)
 }
 
 make_grid <- function(q_prefix, group_var, color = bar_color) { tryCatch({
